@@ -1,12 +1,15 @@
 package zhangfei.xingxiangyi.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import zhangfei.xingxiangyi.MainActivity;
 import zhangfei.xingxiangyi.R;
+import zhangfei.xingxiangyi.activitys.PaiGua;
 
 
 /**
@@ -31,7 +34,9 @@ public class GuaFragmentEntrance extends XingXiangYiFragment{
         view.findViewById(R.id.auto).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getContext(),PaiGua.class);
+                intent.putExtra(getString(R.string.qiguafangshi), getString(R.string.diannaozidong));
+                startActivity(intent);
             }
         });
 
@@ -39,7 +44,9 @@ public class GuaFragmentEntrance extends XingXiangYiFragment{
         view.findViewById(R.id.manual).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getContext(),PaiGua.class);
+                intent.putExtra(getString(R.string.qiguafangshi), getString(R.string.shougongzhiding));
+                startActivity(intent);
             }
         });
     }

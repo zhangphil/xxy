@@ -21,8 +21,8 @@ public class XingXiangYiFragment extends Fragment{
         super.onCreate(savedInstanceState);
 
         //沉浸式
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
+        //getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        //getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 }

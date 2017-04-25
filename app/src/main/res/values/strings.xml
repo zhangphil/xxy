@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">XingXiangYi</string>
+
+    <string name="user_store_info">USER_STORE_INFO</string>
+
+    <string name="file_dir_history">/sdcard/xingxiangyi/history/</string>
+    <string name="file_dir_snapshot">/sdcard/xingxiangyi/snapshot/</string>
+    <string name="file_dir_database">/sdcard/xingxiangyi/database/</string>
+
+    <string name="app_name">星象仪</string>
+
+    <string name="unknown">未知</string>
+
+    <string name="qiguafangshi">起卦方式</string>
+    <string name="shougongzhiding">手工指定</string>
+    <string name="diannaozidong">电脑自动</string>
 </resources>
