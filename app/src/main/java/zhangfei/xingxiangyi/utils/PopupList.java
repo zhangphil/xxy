@@ -44,14 +44,14 @@ public class PopupList {
 
     public static final int DEFAULT_NORMAL_TEXT_COLOR = Color.WHITE;
     public static final int DEFAULT_PRESSED_TEXT_COLOR = Color.WHITE;
-    public static final float DEFAULT_TEXT_SIZE_DP = 14;
+    public static final float DEFAULT_TEXT_SIZE_DP = 15;
     public static final float DEFAULT_TEXT_PADDING_LEFT_DP = 10.0f;
     public static final float DEFAULT_TEXT_PADDING_TOP_DP = 5.0f;
     public static final float DEFAULT_TEXT_PADDING_RIGHT_DP = 10.0f;
     public static final float DEFAULT_TEXT_PADDING_BOTTOM_DP = 5.0f;
     public static final int DEFAULT_NORMAL_BACKGROUND_COLOR = 0xCC000000;
     public static final int DEFAULT_PRESSED_BACKGROUND_COLOR = 0xE7777777;
-    public static final int DEFAULT_BACKGROUND_RADIUS_DP = 8;
+    public static final int DEFAULT_BACKGROUND_RADIUS_DP = 5;
     public static final int DEFAULT_DIVIDER_COLOR = 0x9AFFFFFF;
     public static final float DEFAULT_DIVIDER_WIDTH_DP = 0.5f;
     public static final float DEFAULT_DIVIDER_HEIGHT_DP = 16.0f;
