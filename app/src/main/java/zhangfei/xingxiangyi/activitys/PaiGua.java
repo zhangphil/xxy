@@ -1,40 +1,40 @@
 package zhangfei.xingxiangyi.activitys;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import java.util.Calendar;
+
+
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
+import android.app.Dialog;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.util.Log;
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.CompoundButton;
+import android.content.Context;
+import android.graphics.Color;
+import android.widget.NumberPicker;
+import android.view.LayoutInflater;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.widget.TimePicker;
+
 import java.util.Random;
 
 import zhangfei.xingxiangyi.MainActivity;
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.core.GuaFormat;
 
-/**
- * Created by Phil on 2017/4/25.
- */
 
-public class PaiGua extends XingXiangYiActivity {
+public class PaiGua extends Activity {
 
 
     private boolean SHOUGONGZHIDING = true;
@@ -66,7 +66,6 @@ public class PaiGua extends XingXiangYiActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paigua);
 
-
         String qgfs = this.getIntent().getStringExtra(getString(R.string.qiguafangshi));
 
         if (qgfs.equals(getString(R.string.shougongzhiding)))
@@ -87,6 +86,8 @@ public class PaiGua extends XingXiangYiActivity {
         txtViewBirthday = (TextView) findViewById(R.id.txtViewBirthday);
         txtViewBirthday.setClickable(true);
         txtViewBirthday.setFocusable(true);
+        //txtViewBirthday.setFocusableInTouchMode(true);
+        txtViewBirthday.setOnClickListener(new TextViewBirthdayListener(this));
 
 
         nameEditText = (EditText) findViewById(R.id.editTextName);
@@ -112,6 +113,7 @@ public class PaiGua extends XingXiangYiActivity {
         txtViewHourMinute = (TextView) findViewById(R.id.txtViewHourMinute);
         txtViewHourMinute.setClickable(true);
         txtViewHourMinute.setFocusable(true);
+        txtViewHourMinute.setOnClickListener(new TextViewHourMinuteListener(this));
 
         txtViewYearMonthDay.setText(Year + "年" + (Month + 1) + "月" + Day + "日");
         txtViewHourMinute.setText(Hour + "时" + Minute + "分");
@@ -177,7 +179,7 @@ public class PaiGua extends XingXiangYiActivity {
     }
 
 	/*
-	Bitmap	makeBitmap(int w,int h)
+    Bitmap	makeBitmap(int w,int h)
 	{
 		Bitmap bmp= Bitmap.createBitmap(w,h, Config.ARGB_8888);
 		Canvas canvas = new Canvas(bmp);
@@ -306,6 +308,61 @@ public class PaiGua extends XingXiangYiActivity {
             builder.setTitle("选择卦爻");
             builder.setSingleChoiceItems(gua6Yao, -1, new DialogInterfaceOnClickListenerImpl());
 
+			/*
+			builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
+											{
+												public void onClick(DialogInterface dialog, int id)
+												{
+													if(index<0)
+														return;
+
+													txtView.setText( gua6Yao[index] );
+
+													if(txtView==txtView1Yao)
+													{
+														YaoValue[0]=index;
+														return;
+													}
+													if(txtView==txtView2Yao)
+													{
+														YaoValue[1]=index;
+														return;
+													}
+													if(txtView==txtView3Yao)
+													{
+														YaoValue[2]=index;
+														return;
+													}
+													if(txtView==txtView4Yao)
+													{
+														YaoValue[3]=index;
+														return;
+													}
+													if(txtView==txtView5Yao)
+													{
+														YaoValue[4]=index;
+														return;
+													}
+													if(txtView==txtView6Yao)
+													{
+														YaoValue[5]=index;
+														return;
+													}
+												}
+											}
+									);
+
+			builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
+											{
+												public void onClick(DialogInterface dialog, int id)
+												{
+													index=-1;
+												}
+											}
+									);
+
+			*/
+
             yaoDialog = builder.create();
         }
 
@@ -386,6 +443,20 @@ public class PaiGua extends XingXiangYiActivity {
                     , Year, Month, Day);
 
             dateDialog.setTitle("设置年、月、日");
+
+			/*
+			dateDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+
+		           }
+		       });
+
+			dateDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"取消", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   dateDialog.cancel();
+		           }
+		       });
+		     */
         }
 
         public void onClick(View tv) {
@@ -394,10 +465,83 @@ public class PaiGua extends XingXiangYiActivity {
     }
 
 
+    private class TextViewHourMinuteListener implements TextView.OnClickListener {
+        private TimePickerDialog timeDialog;
 
 
+        public TextViewHourMinuteListener(Context context) {
+            timeDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    Hour = hourOfDay;
+                    Minute = minute;
+
+                    txtViewHourMinute.setText(Hour + "时" + Minute + "分");
+                }
+            },
+                    Hour, Minute, true);
+
+            timeDialog.setTitle("设置时、分");
+
+			/*
+			timeDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+
+		           }
+		       });
+
+			timeDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"取消", new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   	timeDialog.cancel();
+		           }
+		       });
+		     */
+        }
+
+        public void onClick(View tv) {
+            timeDialog.show();
+        }
+    }
 
 
+    private class TextViewBirthdayListener implements TextView.OnClickListener {
+        private NumberPicker picker = null;
+        private Dialog dialog = null;
+
+        public TextViewBirthdayListener(Context ctx) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+
+            Context context = ctx;
+
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.birthdayyearnumberpicker, null);
+
+            picker = (NumberPicker) view.findViewById(R.id.birthdayYearNumberPicker);
+            picker.setMinValue(1900);
+            picker.setMaxValue(2100);
+            picker.setValue(1990);
+
+            //picker.setOnLongPressUpdateInterval(300);
+
+            builder.setView(view);
+
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    BIRTHDAY_YEAR = picker.getValue() + "";
+                    txtViewBirthday.setText("生年:" + BIRTHDAY_YEAR);
+                }
+            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    /**什么也不做*/
+                }
+            }).setTitle("选择出生年份");
+
+            dialog = builder.create();
+        }
+
+        public void onClick(View tv) {
+            dialog.show();
+        }
+    }
 
 
     /**
@@ -441,3 +585,4 @@ public class PaiGua extends XingXiangYiActivity {
         }
     }
 }
+

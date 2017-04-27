@@ -3,12 +3,14 @@ package zhangfei.xingxiangyi.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.utils.RecyclerViewUtil;
@@ -36,6 +38,7 @@ public class ContentsFragment extends XingXiangYiFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
 
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -58,6 +61,8 @@ public class ContentsFragment extends XingXiangYiFragment {
                 Toast.makeText(getContext(),position+" 长按",Toast.LENGTH_SHORT).show();
             }
         });
+
+        //FloatingActionButton fab= (FloatingActionButton) view.findViewById(R.id.fab);
     }
 
 

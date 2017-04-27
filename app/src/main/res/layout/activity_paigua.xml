@@ -7,8 +7,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <RelativeLayout
+        android:id="@+id/RelativeLayout01"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="1dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip">
+
 
         <CheckBox
             android:id="@+id/checkBoxGenderMale"
@@ -170,11 +178,25 @@
 
                 android:gravity="center"
                 android:paddingBottom="15dip"
+
                 android:paddingTop="15dip"
                 android:text="开始排卦"
                 android:textSize="25sp" />
 
         </LinearLayout>
+
+        <!--  <TextView
+            android:id="@+id/txtViewPaiPan"
+            android:layout_width="130dip"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LinearLayoutGuaYao"
+            android:layout_centerHorizontal="true"
+            android:drawableRight="@drawable/paipan"
+            android:gravity="center"
+            android:layout_marginTop="15dip"
+            android:text="开始排盘"
+            android:textSize="23sp" />-->
+
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

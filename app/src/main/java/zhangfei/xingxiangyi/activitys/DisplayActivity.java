@@ -1,37 +1,44 @@
 package zhangfei.xingxiangyi.activitys;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
+
 import android.util.DisplayMetrics;
-import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.view.Gravity;
+
+import java.util.Calendar;
+import java.io.File;
+import java.io.FileOutputStream;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.Context;
+import android.view.View;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Calendar;
+
+import org.json.*;
 
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.core.BaseData;
@@ -40,11 +47,8 @@ import zhangfei.xingxiangyi.core.GuaFormat;
 import zhangfei.xingxiangyi.core.LiuYaoPaiPan;
 import zhangfei.xingxiangyi.core.Lunar;
 
-/**
- * Created by Phil on 2017/4/25.
- */
 
-public class DisplayActivity extends XingXiangYiActivity {
+public class DisplayActivity extends Activity {
 
     private String[] items = new String[]{"请选择", "保存", "编辑[关]", "删除", "设置"};
 
@@ -58,6 +62,12 @@ public class DisplayActivity extends XingXiangYiActivity {
     private EditText inputFileNameEditText = null;
     private AlertDialog dialogInputFileName = null;
 
+	/*
+	private	final	static	int	ID_MENU_SAVE=100;
+	private	final	static	int ID_MENU_EDIT=101;
+	private	final	static	int	ID_MENU_DELETE=102;
+	private	final	static	int	ID_MENU_SET=103;
+	*/
 
     private int ZOOM_SIZE = 16;
 
@@ -77,7 +87,9 @@ public class DisplayActivity extends XingXiangYiActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displaygua);
 
+
         items[2] = editable ? "编辑[开]" : "编辑[关]";
+
 
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
 
@@ -222,51 +234,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         editText.append(sb.toString());
         editText.append("\n\n备注: ");
 
-
-        //super.onStart();
-    }
-
-    private class MyArrayAdapter<T> extends ArrayAdapter<T> {
-        public MyArrayAdapter(Context context, int resource) {
-            super(context, resource);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater inflater = getLayoutInflater();
-                convertView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-            }
-
-            TextView tv1 = (TextView) convertView.findViewById(android.R.id.text1);
-            tv1.setText("选项");
-            tv1.setTextColor(Color.WHITE);
-            tv1.setBackgroundDrawable(getResources().getDrawable(android.R.color.holo_blue_light));
-
-            return convertView;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                LayoutInflater inflater = getLayoutInflater();
-                convertView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-            }
-
-            TextView tv1 = (TextView) convertView.findViewById(android.R.id.text1);
-            tv1.setTextColor(Color.WHITE);
-            tv1.setText(items[position]);
-
-            convertView.setBackgroundDrawable(getResources().getDrawable(android.R.color.holo_blue_light));
-
-            return convertView;
-        }
-
-        //必须重写此方法返回长度值，否则无内容。
-        @Override
-        public int getCount() {
-            return items.length;
-        }
     }
 
 
@@ -560,7 +527,56 @@ public class DisplayActivity extends XingXiangYiActivity {
                 startActivity(intent);
 
                 return true;
+		      /*
+		      case	ID_MENU_SAVE:
 
+		    	  if(FILE_PATH==null)
+		    	  {
+		    		  dialogInputFileName.show();
+		    	  }
+		    	  else
+		    	  		saveToFile(FILE_PATH);
+
+		    	 return	true;
+
+		      case ID_MENU_EDIT:
+		    	  editable=!editable;
+		    	  editText.setFocusable(editable);
+		    	  editText.setFocusableInTouchMode(editable);
+		    	  if(editable)
+		    		  editText.requestFocus();
+
+		    	  String s=editable ? "编辑[开]":"编辑[关]";
+		    	  item.setTitle(s);
+
+		    	  return	true;
+
+
+
+		      case ID_MENU_DELETE:
+		    	  if(FILE_PATH!=null)
+		    	  {
+		    		  removeFile(FILE_PATH);
+
+		    		  Intent it = new Intent(this,PaiGua.class);
+		    		  it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		    		  it.putExtra( getString(R.string.qiguafangshi) ,QiGuaFangShi);
+		    		  startActivity(it);
+		    	  }
+		    	  else
+		    	  {
+		    		 Toast msg=Toast.makeText(DisplayActivity.this,"此卦还没有保存", Toast.LENGTH_LONG);
+		  			msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
+		  			msg.show();
+		    	  }
+
+		    	  return	true;
+
+		      case	ID_MENU_SET:
+		    	  new SetDisplayActivity();
+
+		    	  return	true;
+		    */
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -573,7 +589,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         private EditText editTextSet1 = null, editTextSet2 = null, editTextSet3 = null;
         private AlertDialog dialogInputSet = null;
         private SharedPreferences sp = null;
-        private SharedPreferences.Editor editor = null;
+        private Editor editor = null;
 
         public SetDisplayActivity() {
             sp = DisplayActivity.this.getSharedPreferences(getString(R.string.user_store_info), Context.MODE_PRIVATE);
@@ -605,7 +621,7 @@ public class DisplayActivity extends XingXiangYiActivity {
             editTextSet3.setVisibility(View.GONE);
             //editTextSet3.setHeight(0);
 
-            dialogInputSet = new AlertDialog.Builder(DisplayActivity.this).setTitle("设置本页显示内容").setIcon(android.R.drawable.ic_menu_manage).setView(view).setPositiveButton("确定", new DialogEditTextListener()).setNegativeButton("取消", null).show();
+            dialogInputSet = new AlertDialog.Builder(DisplayActivity.this).setTitle("设置本页显示内容").setIcon(android.R.drawable.ic_menu_set_as).setView(view).setPositiveButton("确定", new DialogEditTextListener()).setNegativeButton("取消", null).show();
         }
 
 
@@ -636,24 +652,8 @@ public class DisplayActivity extends XingXiangYiActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        /*
-		MenuItem saveMenu=menu.add(0, ID_MENU_SAVE, 0, "保存");
-
-		String s=editable ? "编辑[开]":"编辑[关]";
-		MenuItem editMenu=menu.add(0, ID_MENU_EDIT, 1,s);
-
-		MenuItem deleteMenu=menu.add(0, ID_MENU_DELETE,2, "删除");
-
-		MenuItem setMenu=menu.add(0,ID_MENU_SET,3, "设置");
-
-		 */
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
     }
 
@@ -661,5 +661,4 @@ public class DisplayActivity extends XingXiangYiActivity {
     public boolean onContextItemSelected(MenuItem item) {
         return true;
     }
-
 }
