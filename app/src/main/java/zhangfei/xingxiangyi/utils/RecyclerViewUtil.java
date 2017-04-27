@@ -36,6 +36,7 @@ public class RecyclerViewUtil {
                     View childView = mRecyclerView.findChildViewUnder(e.getX(), e.getY());
                     if (childView != null) {
                         int position = mRecyclerView.getChildLayoutPosition(childView);
+                        mOnItemLongClickListener.onItemLongClick(position, childView, e);
                         mOnItemLongClickListener.onItemLongClick(position, childView);
                     }
                 }
@@ -80,11 +81,13 @@ public class RecyclerViewUtil {
 
     //长按事件接口
     public interface OnItemLongClickListener {
-        public void onItemLongClick(int position, View view);
+        void onItemLongClick(int position, View view, MotionEvent e);
+
+        void onItemLongClick(int position, View view);
     }
 
     //单击事件接口
     public interface OnItemClickListener {
-        public void onItemClick(int position, View view);
+        void onItemClick(int position, View view);
     }
 }

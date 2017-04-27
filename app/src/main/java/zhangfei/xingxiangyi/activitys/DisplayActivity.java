@@ -48,7 +48,7 @@ import zhangfei.xingxiangyi.core.LiuYaoPaiPan;
 import zhangfei.xingxiangyi.core.Lunar;
 
 
-public class DisplayActivity extends Activity {
+public class DisplayActivity extends XingXiangYiActivity {
 
     private String[] items = new String[]{"请选择", "保存", "编辑[关]", "删除", "设置"};
 

@@ -34,7 +34,7 @@ import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.core.GuaFormat;
 
 
-public class PaiGua extends Activity {
+public class PaiGua extends XingXiangYiActivity {
 
 
     private boolean SHOUGONGZHIDING = true;

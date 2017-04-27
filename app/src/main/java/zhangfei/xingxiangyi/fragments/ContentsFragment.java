@@ -3,16 +3,20 @@ package zhangfei.xingxiangyi.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import zhangfei.xingxiangyi.R;
+import zhangfei.xingxiangyi.utils.PopupList;
 import zhangfei.xingxiangyi.utils.RecyclerViewUtil;
 
 /**
@@ -22,6 +26,8 @@ import zhangfei.xingxiangyi.utils.RecyclerViewUtil;
 public class ContentsFragment extends XingXiangYiFragment {
 
     private RecyclerView recyclerView;
+
+    private List<String> popupMenuItemList = new ArrayList<>();
 
     @Override
     public String getTitle() {
@@ -47,22 +53,39 @@ public class ContentsFragment extends XingXiangYiFragment {
         recyclerView.setAdapter(adapter);
 
 
-        RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil(getContext(), recyclerView);
+        popupMenuItemList.add("打开");
+        popupMenuItemList.add("删除");
+
+        final RecyclerViewUtil recyclerViewUtil = new RecyclerViewUtil(getContext(), recyclerView);
         recyclerViewUtil.setOnItemClickListener(new RecyclerViewUtil.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view) {
-                Toast.makeText(getContext(),position+" 单击",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), position + " 单击", Toast.LENGTH_SHORT).show();
             }
         });
 
-        recyclerViewUtil.setOnItemLongClickListener(new RecyclerViewUtil.OnItemLongClickListener(){
+        recyclerViewUtil.setOnItemLongClickListener(new RecyclerViewUtil.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(int position, View view, MotionEvent e) {
+                PopupList popupList = new PopupList(getActivity());
+                popupList.showPopupListWindow(view, position, e.getRawX(), e.getRawY(), popupMenuItemList, new PopupList.PopupListListener() {
+                    @Override
+                    public boolean showPopupList(View adapterView, View contextView, int contextPosition) {
+                        return true;
+                    }
+
+                    @Override
+                    public void onPopupListClick(View contextView, int contextPosition, int position) {
+                        Toast.makeText(getActivity(), "列表位置:" + contextPosition + " , 弹出菜单位置:" + position, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
             @Override
             public void onItemLongClick(int position, View view) {
-                Toast.makeText(getContext(),position+" 长按",Toast.LENGTH_SHORT).show();
+
             }
         });
-
-        //FloatingActionButton fab= (FloatingActionButton) view.findViewById(R.id.fab);
     }
 
 

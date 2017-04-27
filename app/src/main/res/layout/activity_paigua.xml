@@ -1,202 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout01"
+    <include layout="@layout/common_bar" />
+
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:paddingBottom="1dip"
-        android:paddingLeft="5dip"
-        android:paddingRight="5dip">
-
-
-        <CheckBox
-            android:id="@+id/checkBoxGenderMale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="男"
-            android:textSize="16sp" />
-
-        <CheckBox
-            android:id="@+id/checkBoxGenderFemale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="1dip"
-            android:layout_toRightOf="@+id/checkBoxGenderMale"
-            android:paddingRight="75dip"
-            android:text="女"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/txtViewBirthday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="5dip"
-            android:layout_marginTop="10dip"
-            android:layout_toRightOf="@+id/checkBoxGenderFemale"
-            android:ems="8"
-            android:text="生年:0000"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/editTextName"
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/checkBoxGenderMale"
-            android:layout_below="@+id/txtViewBirthday"
-            android:ems="15"
-            android:inputType="textPersonName"
-            android:paddingTop="5dip"
-            android:textSize="16sp" />
-
-
-        <EditText
-            android:id="@+id/editTextThings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/editTextName"
-            android:layout_alignRight="@+id/txtViewBirthday"
-            android:layout_below="@+id/editTextName"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:lines="2"
-            android:paddingTop="5dip"
-            android:textSize="16sp" />
-
-
-        <TextView
-            android:id="@+id/txtViewYearMonthDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/checkBoxGenderMale"
-            android:layout_below="@+id/editTextThings"
-            android:paddingTop="10dip"
-            android:text="0000年00月00日"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/txtViewHourMinute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/txtViewBirthday"
-            android:layout_below="@+id/editTextThings"
-            android:paddingTop="10dip"
-            android:text="00时00分"
-            android:textSize="16sp" />
-
+        android:background="@android:color/white">
 
         <LinearLayout
-            android:id="@+id/LinearLayoutGuaYao"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignLeft="@+id/editTextName"
-            android:layout_below="@+id/txtViewHourMinute"
-            android:orientation="vertical"
-            android:paddingTop="10dip">
+            android:orientation="vertical">
 
-
-            <RelativeLayout
+            <CheckBox
+                android:id="@+id/checkBoxGenderMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:text="男"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/txtView6Yao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="上 爻"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtView5Yao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtView6Yao"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dip"
-                    android:text="五 爻"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtView4Yao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtView5Yao"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dip"
-                    android:text="四 爻"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtView3Yao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtView4Yao"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dip"
-                    android:text="三 爻"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtView2Yao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtView3Yao"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dip"
-                    android:text="二 爻"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/txtView1Yao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtView2Yao"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dip"
-                    android:text="初 爻"
-                    android:textSize="16sp" />
-
-            </RelativeLayout>
+            <CheckBox
+                android:id="@+id/checkBoxGenderFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/txtViewPaiPan"
-                android:layout_width="match_parent"
+                android:id="@+id/txtViewBirthday"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="15dip"
+                android:ems="8"
+                android:text="生年:0000"
+                android:textSize="16sp" />
 
-                android:gravity="center"
-                android:paddingBottom="15dip"
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:ems="15"
+                android:inputType="textPersonName"
+                android:textSize="16sp" />
 
-                android:paddingTop="15dip"
-                android:text="开始排卦"
-                android:textSize="25sp" />
 
+            <EditText
+                android:id="@+id/editTextThings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtViewYearMonthDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0000年00月00日"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtViewHourMinute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00时00分"
+                android:textSize="16sp" />
+
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutGuaYao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingTop="10dip">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/txtView6Yao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="上 爻"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtView5Yao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtView6Yao"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dip"
+                        android:text="五 爻"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtView4Yao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtView5Yao"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dip"
+                        android:text="四 爻"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtView3Yao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtView4Yao"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dip"
+                        android:text="三 爻"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtView2Yao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtView3Yao"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dip"
+                        android:text="二 爻"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtView1Yao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtView2Yao"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dip"
+                        android:text="初 爻"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtViewPaiPan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="15dip"
+                    android:gravity="center"
+                    android:text="开始排卦"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
         </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
 
-        <!--  <TextView
-            android:id="@+id/txtViewPaiPan"
-            android:layout_width="130dip"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/LinearLayoutGuaYao"
-            android:layout_centerHorizontal="true"
-            android:drawableRight="@drawable/paipan"
-            android:gravity="center"
-            android:layout_marginTop="15dip"
-            android:text="开始排盘"
-            android:textSize="23sp" />-->
 
-    </RelativeLayout>
 
-</android.support.v4.widget.NestedScrollView>

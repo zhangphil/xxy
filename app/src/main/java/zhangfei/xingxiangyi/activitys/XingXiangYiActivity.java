@@ -27,7 +27,6 @@ public class XingXiangYiActivity extends AppCompatActivity {
         /** 全局初始化BaseData一次 */
         BaseData basedata = new BaseData();
 
-
         /**
          * 判断SD卡是否插入
          * 0Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
