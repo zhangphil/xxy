@@ -1,14 +1,11 @@
 package zhangfei.xingxiangyi.activitys;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.view.Gravity;
 
@@ -23,9 +20,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
@@ -230,12 +225,9 @@ public class DisplayActivity extends XingXiangYiActivity {
             e.printStackTrace();
         }
 
-
         editText.append(sb.toString());
         editText.append("\n\n备注: ");
-
     }
-
 
     private class DialogEditTextListener implements DialogInterface.OnClickListener {
         public void onClick(DialogInterface dialog, int whichButton) {
@@ -292,7 +284,7 @@ public class DisplayActivity extends XingXiangYiActivity {
     }
 
 
-    class TextViewSnapshotListener implements TextView.OnClickListener {
+    private class TextViewSnapshotListener implements TextView.OnClickListener {
         public void onClick(View v) {
             new Handler().post(
                     new Runnable() {
@@ -314,7 +306,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
     }
 
-    class SaveToImageProcess {
+    private class SaveToImageProcess {
         public void process() {
             new SaveToImage().save();
 
@@ -332,7 +324,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
     }
 
-    class SaveToImage {
+    private class SaveToImage {
         private Calendar cal = null;
         private int year, month, day, hour, min, sec;
 
@@ -386,7 +378,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
 
 
-        Bitmap loadBitmapFromView(View v) {
+        private Bitmap loadBitmapFromView(View v) {
             int w = editText.getWidth();
             int h = editText.getHeight();
 
@@ -400,7 +392,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
 
         // 图片添加水印
-        Bitmap createWatermarkBitmap(Bitmap src, String str) {
+        private Bitmap createWatermarkBitmap(Bitmap src, String str) {
             int w = src.getWidth();
             int h = src.getHeight();
 
@@ -516,6 +508,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int ID = item.getItemId();
 
@@ -525,58 +518,7 @@ public class DisplayActivity extends XingXiangYiActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra(getString(R.string.qiguafangshi), QiGuaFangShi);
                 startActivity(intent);
-
                 return true;
-		      /*
-		      case	ID_MENU_SAVE:
-
-		    	  if(FILE_PATH==null)
-		    	  {
-		    		  dialogInputFileName.show();
-		    	  }
-		    	  else
-		    	  		saveToFile(FILE_PATH);
-
-		    	 return	true;
-
-		      case ID_MENU_EDIT:
-		    	  editable=!editable;
-		    	  editText.setFocusable(editable);
-		    	  editText.setFocusableInTouchMode(editable);
-		    	  if(editable)
-		    		  editText.requestFocus();
-
-		    	  String s=editable ? "编辑[开]":"编辑[关]";
-		    	  item.setTitle(s);
-
-		    	  return	true;
-
-
-
-		      case ID_MENU_DELETE:
-		    	  if(FILE_PATH!=null)
-		    	  {
-		    		  removeFile(FILE_PATH);
-
-		    		  Intent it = new Intent(this,PaiGua.class);
-		    		  it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		    		  it.putExtra( getString(R.string.qiguafangshi) ,QiGuaFangShi);
-		    		  startActivity(it);
-		    	  }
-		    	  else
-		    	  {
-		    		 Toast msg=Toast.makeText(DisplayActivity.this,"此卦还没有保存", Toast.LENGTH_LONG);
-		  			msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
-		  			msg.show();
-		    	  }
-
-		    	  return	true;
-
-		      case	ID_MENU_SET:
-		    	  new SetDisplayActivity();
-
-		    	  return	true;
-		    */
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -649,12 +591,6 @@ public class DisplayActivity extends XingXiangYiActivity {
                 }
             }
         }
-    }
-
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     @Override
