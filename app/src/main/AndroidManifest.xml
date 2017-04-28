@@ -19,6 +19,9 @@
 
         <activity android:name=".activitys.PaiGua" />
         <activity android:name=".activitys.DisplayActivity" />
+        <activity android:name=".activitys.ImageViewPagerActivity" />
     </application>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 </manifest>

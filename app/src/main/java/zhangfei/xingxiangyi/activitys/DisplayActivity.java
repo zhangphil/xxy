@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
@@ -57,8 +56,6 @@ public class DisplayActivity extends XingXiangYiActivity {
     private EditText editText = null;
     private boolean editable = false;
 
-    TextView txtViewSnapshot;
-
     private EditText inputFileNameEditText = null;
     private AlertDialog dialogInputFileName = null;
 
@@ -72,9 +69,6 @@ public class DisplayActivity extends XingXiangYiActivity {
     private final static String DISPLAY_EDIT_TEXT_FONT_SIZE_TAG = "display_edit_text_font_size";
 
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,15 +89,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         editText.setMinWidth(displayMetrics.widthPixels);
         editText.setMinHeight(displayMetrics.heightPixels);
 
-
         dialogInputFileName = new AlertDialog.Builder(this).setTitle("输入文件名").setIcon(android.R.drawable.ic_dialog_info).setView(inputFileNameEditText).setPositiveButton("确定", new DialogEditTextListener()).setNegativeButton("取消", null).create();
-
-
-        txtViewSnapshot = (TextView) findViewById(R.id.txtViewSnapshot);
-        txtViewSnapshot.setClickable(true);
-        txtViewSnapshot.setFocusable(true);
-        txtViewSnapshot.setOnClickListener(new TextViewSnapshotListener());
-
 
         ZoomControls zoomcontrols = (ZoomControls) findViewById(R.id.zoomcontrols);
         //zoomcontrols.setAlpha(0.8f);
@@ -114,11 +100,7 @@ public class DisplayActivity extends XingXiangYiActivity {
 
         //}
 
-
-        //protected	void	onStart()
-        //{
         FILE_PATH = null;/*必须置null*/
-
 
         DISPLAY_EDIT_TEXT_FONT_SIZE = editText.getTextSize();
 
@@ -237,13 +219,24 @@ public class DisplayActivity extends XingXiangYiActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "保存", Toast.LENGTH_SHORT).show();
+
+                floatingActionMenu.close(true);
             }
         });
 
         fabShot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "截图", Toast.LENGTH_SHORT).show();
+
+                new Handler().postDelayed(
+                        new Runnable() {
+                            public void run() {
+                                new SaveToImageProcess().process();
+                            }
+                        }, 10
+                );
+
+                floatingActionMenu.close(true);
             }
         });
 
@@ -251,6 +244,8 @@ public class DisplayActivity extends XingXiangYiActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "编辑", Toast.LENGTH_SHORT).show();
+
+                floatingActionMenu.close(true);
             }
         });
 
@@ -258,6 +253,8 @@ public class DisplayActivity extends XingXiangYiActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "删除", Toast.LENGTH_SHORT).show();
+
+                floatingActionMenu.close(true);
             }
         });
     }
@@ -317,6 +314,7 @@ public class DisplayActivity extends XingXiangYiActivity {
     }
 
 
+    /*
     private class TextViewSnapshotListener implements TextView.OnClickListener {
         public void onClick(View v) {
             new Handler().post(
@@ -338,22 +336,11 @@ public class DisplayActivity extends XingXiangYiActivity {
 
         }
     }
+    */
 
     private class SaveToImageProcess {
         public void process() {
             new SaveToImage().save();
-
-            txtViewSnapshot.setText(" 截图完成");
-            new Handler().postDelayed(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            txtViewSnapshot.setText("");
-                        }
-                    },
-                    5000
-            );
-
         }
     }
 
@@ -403,7 +390,6 @@ public class DisplayActivity extends XingXiangYiActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
             editText.destroyDrawingCache();
         }

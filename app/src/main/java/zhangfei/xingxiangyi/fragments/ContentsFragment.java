@@ -1,6 +1,7 @@
 package zhangfei.xingxiangyi.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import zhangfei.xingxiangyi.R;
+import zhangfei.xingxiangyi.activitys.ImageViewPagerActivity;
 import zhangfei.xingxiangyi.utils.PopupList;
 import zhangfei.xingxiangyi.utils.RecyclerViewUtil;
 
@@ -84,6 +86,14 @@ public class ContentsFragment extends XingXiangYiFragment {
             @Override
             public void onItemLongClick(int position, View view) {
 
+            }
+        });
+
+        view.findViewById(R.id.fab_gallery).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(),ImageViewPagerActivity.class);
+                startActivity(intent);
             }
         });
     }
