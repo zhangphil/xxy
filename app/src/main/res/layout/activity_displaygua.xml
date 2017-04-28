@@ -1,48 +1,98 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <include layout="@layout/common_bar" />
 
-        <TextView
-            android:id="@+id/txtViewSnapshot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="截图"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone">
 
-        <ZoomControls
-            android:id="@+id/zoomcontrols"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            <TextView
+                android:id="@+id/txtViewSnapshot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="截图"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp" />
 
-            android:paddingTop="5dip" />
+            <ZoomControls
+                android:id="@+id/zoomcontrols"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
 
-    </RelativeLayout>
+                android:paddingTop="5dip" />
 
-    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/horizontalScrollViewDisplayGua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:scrollbarStyle="outsideOverlay">
+        </RelativeLayout>
 
-        <EditText
-            android:id="@+id/editTextDisplayGua"
-            android:layout_width="3000dp"
+        <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/horizontalScrollViewDisplayGua"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minWidth="400dp"
-            android:textSize="18dp">
+            android:scrollbarStyle="outsideOverlay">
 
-        </EditText>
+            <EditText
+                android:id="@+id/editTextDisplayGua"
+                android:layout_width="3000dp"
+                android:layout_height="match_parent"
+                android:minWidth="400dp"
+                android:textSize="18dp" />
+        </HorizontalScrollView>
+    </LinearLayout>
 
-    </HorizontalScrollView>
 
-</LinearLayout>
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/floating_action_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|right"
+        fab:fab_showShadow="true"
+        fab:fab_size="normal"
+        fab:menu_backgroundColor="#ccffffff"
+        fab:menu_fab_label=""
+        fab:menu_labels_ellipsize="end"
+        fab:menu_labels_singleLine="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_save"
+            fab:fab_label="保存"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_shot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_camera"
+            fab:fab_label="截图"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_edit"
+            fab:fab_label="编辑"
+            fab:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_delete"
+            fab:fab_label="删除"
+            fab:fab_size="mini" />
+    </com.github.clans.fab.FloatingActionMenu>
+</FrameLayout>

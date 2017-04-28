@@ -18,8 +18,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
 import android.view.View;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +30,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import org.json.*;
 
@@ -44,6 +44,11 @@ import zhangfei.xingxiangyi.core.Lunar;
 
 
 public class DisplayActivity extends XingXiangYiActivity {
+    private FloatingActionMenu floatingActionMenu;
+    private FloatingActionButton fabSave;
+    private FloatingActionButton fabShot;
+    private FloatingActionButton fabEdit;
+    private FloatingActionButton fabDelete;
 
     private String[] items = new String[]{"请选择", "保存", "编辑[关]", "删除", "设置"};
 
@@ -56,13 +61,6 @@ public class DisplayActivity extends XingXiangYiActivity {
 
     private EditText inputFileNameEditText = null;
     private AlertDialog dialogInputFileName = null;
-
-	/*
-	private	final	static	int	ID_MENU_SAVE=100;
-	private	final	static	int ID_MENU_EDIT=101;
-	private	final	static	int	ID_MENU_DELETE=102;
-	private	final	static	int	ID_MENU_SET=103;
-	*/
 
     private int ZOOM_SIZE = 16;
 
@@ -82,9 +80,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_displaygua);
 
-
         items[2] = editable ? "编辑[开]" : "编辑[关]";
-
 
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
 
@@ -187,9 +183,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
         editText.append("农历：" + nongli + "\n");
 
-
         String guayao = bundle.getString("卦爻");
-
 
         GanZhiCalendar gzcal = new GanZhiCalendar();
         JSONArray jatime = gzcal.get_JSONArray_GanZhi_NianYueRiShi(year, month, day, hour, true);
@@ -203,7 +197,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         LiuYaoPaiPan liuyaopaipan = new LiuYaoPaiPan();
         JSONObject all = liuyaopaipan.paiPan(guayao, yue_ganzhi, ri_ganzhi);
@@ -227,6 +220,46 @@ public class DisplayActivity extends XingXiangYiActivity {
 
         editText.append(sb.toString());
         editText.append("\n\n备注: ");
+
+        initFloatingActionButton();
+    }
+
+    private void initFloatingActionButton() {
+        floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floating_action_menu);
+        floatingActionMenu.setClosedOnTouchOutside(true);
+
+        fabSave = (FloatingActionButton) findViewById(R.id.fab_save);
+        fabShot = (FloatingActionButton) findViewById(R.id.fab_shot);
+        fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
+        fabDelete = (FloatingActionButton) findViewById(R.id.fab_delete);
+
+        fabSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "保存", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fabShot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "截图", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fabEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "编辑", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "删除", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private class DialogEditTextListener implements DialogInterface.OnClickListener {
@@ -348,7 +381,6 @@ public class DisplayActivity extends XingXiangYiActivity {
             fn = year + "年" + month + "月" + day + "日" + hour + "时" + min + "分" + sec + "秒";
             //fn=year+""+month+""+day+""+hour+""+min+""+sec;
 
-
             editText.setDrawingCacheEnabled(true);
             editText.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
             editText.setDrawingCacheBackgroundColor(Color.WHITE);
@@ -365,7 +397,7 @@ public class DisplayActivity extends XingXiangYiActivity {
                 fos.flush();
                 fos.close();
 
-                Toast msg = Toast.makeText(DisplayActivity.this, "已完成截图,现在去图库查看吧!", Toast.LENGTH_LONG);
+                Toast msg = Toast.makeText(getApplicationContext(), "已完成截图,现在去图库查看吧!", Toast.LENGTH_LONG);
                 msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
                 msg.show();
             } catch (Exception e) {
@@ -374,7 +406,6 @@ public class DisplayActivity extends XingXiangYiActivity {
 
 
             editText.destroyDrawingCache();
-            //editText.setDrawingCacheEnabled(false);
         }
 
 
@@ -395,7 +426,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         private Bitmap createWatermarkBitmap(Bitmap src, String str) {
             int w = src.getWidth();
             int h = src.getHeight();
-
 
             Bitmap bmpTemp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bmpTemp);
@@ -430,14 +460,13 @@ public class DisplayActivity extends XingXiangYiActivity {
             fos.flush();
             fos.close();
 
-            Toast msg = Toast.makeText(DisplayActivity.this, file.getName() + " 已经保存至 历史记录", Toast.LENGTH_LONG);
+            Toast msg = Toast.makeText(getApplicationContext(), file.getName() + " 已经保存至 历史记录", Toast.LENGTH_LONG);
             msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
             msg.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     private void removeFile(String fp) {
         try {
