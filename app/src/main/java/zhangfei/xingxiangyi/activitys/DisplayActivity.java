@@ -83,8 +83,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         //如果打算接收用户编辑EditText则设置下面两句,如果不允许编辑EditText，则全部设置false
         editText.setFocusable(editable);
         editText.setFocusableInTouchMode(editable);
-        //Display display = getWindowManager().getDefaultDisplay();
-        //display.getHeight();display.getWidth();
+
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         editText.setMinWidth(displayMetrics.widthPixels);
         editText.setMinHeight(displayMetrics.heightPixels);
@@ -92,13 +91,8 @@ public class DisplayActivity extends XingXiangYiActivity {
         dialogInputFileName = new AlertDialog.Builder(this).setTitle("输入文件名").setIcon(android.R.drawable.ic_dialog_info).setView(inputFileNameEditText).setPositiveButton("确定", new DialogEditTextListener()).setNegativeButton("取消", null).create();
 
         ZoomControls zoomcontrols = (ZoomControls) findViewById(R.id.zoomcontrols);
-        //zoomcontrols.setAlpha(0.8f);
-        //zoomcontrols.setIsZoomInEnabled(true);
-        //zoomcontrols.setIsZoomOutEnabled(true);
         zoomcontrols.setOnZoomInClickListener(new ZoomInClickListenerImpl());
         zoomcontrols.setOnZoomOutClickListener(new ZoomOutClickListenerImpl());
-
-        //}
 
         FILE_PATH = null;/*必须置null*/
 

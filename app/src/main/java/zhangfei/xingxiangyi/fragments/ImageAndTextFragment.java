@@ -57,12 +57,13 @@ public class ImageAndTextFragment extends XingXiangYiFragment {
     }
 
 
-
     private void addFragments() {
         FragmentManager fm = getChildFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.fragment_container, contentsFragment, FRAGMENT_TAG[0]);
         ft.add(R.id.fragment_container, imagesFragment, FRAGMENT_TAG[1]);
+        ft.hide(imagesFragment);
+        ft.show(contentsFragment);
         ft.commit();
     }
 
