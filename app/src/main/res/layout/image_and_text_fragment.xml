@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <com.huibin.androidsegmentcontrol.SegmentControl xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:segmentcontrol="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/segment_control"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        segmentcontrol:cornerRadius="5dip"
+        segmentcontrol:direction="horizon"
+        segmentcontrol:horizonGap="8dip"
+        segmentcontrol:selectedBackgroundColors="@android:color/holo_red_dark"
+        segmentcontrol:selectedIndex="0"
+        segmentcontrol:selectedTextColors="@android:color/white"
+        segmentcontrol:texts="文字|图象"
+        segmentcontrol:verticalGap="8dip" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
