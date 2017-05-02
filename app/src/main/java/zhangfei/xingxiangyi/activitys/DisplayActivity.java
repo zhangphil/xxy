@@ -64,7 +64,6 @@ public class DisplayActivity extends XingXiangYiActivity {
     private String FILE_PATH = null;
     private String DEFAULT_FILE_NAME = "";
 
-
     private float DISPLAY_EDIT_TEXT_FONT_SIZE = 18.0f;
     private final static String DISPLAY_EDIT_TEXT_FONT_SIZE_TAG = "display_edit_text_font_size";
 
@@ -79,6 +78,14 @@ public class DisplayActivity extends XingXiangYiActivity {
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
 
         inputFileNameEditText = new EditText(this);
+        dialogInputFileName = new AlertDialog.Builder(this)
+                .setTitle("输入文件名")
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setView(inputFileNameEditText)
+                .setPositiveButton("确定", new DialogEditTextListener())
+                .setNegativeButton("取消", null)
+                .create();
+
 
         //如果打算接收用户编辑EditText则设置下面两句,如果不允许编辑EditText，则全部设置false
         editText.setFocusable(editable);
@@ -212,7 +219,10 @@ public class DisplayActivity extends XingXiangYiActivity {
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "保存", Toast.LENGTH_SHORT).show();
+                if (FILE_PATH == null) {
+                    dialogInputFileName.show();
+                } else
+                    saveToFile(FILE_PATH);
 
                 floatingActionMenu.close(true);
             }
@@ -237,9 +247,7 @@ public class DisplayActivity extends XingXiangYiActivity {
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "编辑", Toast.LENGTH_SHORT).show();
 
-                floatingActionMenu.close(true);
             }
         });
 
@@ -247,7 +255,6 @@ public class DisplayActivity extends XingXiangYiActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "删除", Toast.LENGTH_SHORT).show();
-
                 floatingActionMenu.close(true);
             }
         });
@@ -259,7 +266,12 @@ public class DisplayActivity extends XingXiangYiActivity {
                 String s = inputFileNameEditText.getText().toString().trim();
 
                 if (s.equals("")) {
-                    new AlertDialog.Builder(DisplayActivity.this).setTitle("文件名错误").setIcon(android.R.drawable.ic_dialog_alert).setMessage("文件名不能为空").setPositiveButton("确定", null).show();
+                    new AlertDialog.Builder(DisplayActivity.this)
+                            .setTitle("文件名错误")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setMessage("文件名不能为空")
+                            .setPositiveButton("确定", null)
+                            .show();
 
                     return;
                 }
@@ -277,7 +289,7 @@ public class DisplayActivity extends XingXiangYiActivity {
                     e.printStackTrace();
                 }
 
-                String fp = getResources().getString(R.string.file_dir_history) + s + ".txt";
+                String fp = getString(R.string.file_dir_history) + s + ".txt";
                 FILE_PATH = fp;
                 saveToFile(FILE_PATH);
             }
@@ -307,30 +319,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         }
     }
 
-
-    /*
-    private class TextViewSnapshotListener implements TextView.OnClickListener {
-        public void onClick(View v) {
-            new Handler().post(
-                    new Runnable() {
-                        public void run() {
-                            txtViewSnapshot.setText(" 处理中···");
-                        }
-                    }
-            );
-
-
-            new Handler().postDelayed(
-                    new Runnable() {
-                        public void run() {
-                            new SaveToImageProcess().process();
-                        }
-                    }, 10
-            );
-
-        }
-    }
-    */
 
     private class SaveToImageProcess {
         public void process() {
@@ -600,10 +588,5 @@ public class DisplayActivity extends XingXiangYiActivity {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        return true;
     }
 }
