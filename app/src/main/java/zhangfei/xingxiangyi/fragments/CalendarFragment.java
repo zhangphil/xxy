@@ -3,6 +3,7 @@ package zhangfei.xingxiangyi.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import zhangfei.xingxiangyi.core.XingZuo;
 public class CalendarFragment extends XingXiangYiFragment {
 
     private int Year = 0, Month = 0, Day = 0;
-    private int Hour = 0;
+    //private final   int Hour = 0;
 
     private GanZhiCalendar ganzhiCal = new GanZhiCalendar();
     private Map ganzhiMap = null;
@@ -68,14 +69,14 @@ public class CalendarFragment extends XingXiangYiFragment {
         Year = cal.get(Calendar.YEAR);
         Month = cal.get(Calendar.MONTH);
         Day = cal.get(Calendar.DAY_OF_MONTH);
-        Hour = cal.get(Calendar.HOUR_OF_DAY);
+        //Hour = cal.get(Calendar.HOUR_OF_DAY);
         Minute = cal.get(Calendar.MINUTE);
 
         Day_Week = cal.get(Calendar.DAY_OF_WEEK);
 
         textViewGongLi.setText("公历：" + Year + "年" + (Month + 1) + "月" + Day + "日");
 
-        ganzhiMap = ganzhiCal.get_Map_GanZhi_NianYueRiShi(Year, Month, Day, Hour, true);
+        ganzhiMap = ganzhiCal.get_Map_GanZhi_NianYueRiShi(Year, Month, Day, 0, true);
         nian_ganzhi = (String) ganzhiMap.get("年");
         yue_ganzhi = (String) ganzhiMap.get("月");
         ri_ganzhi = (String) ganzhiMap.get("日");
@@ -94,7 +95,7 @@ public class CalendarFragment extends XingXiangYiFragment {
         setNongLI_KongWang_XingZuo();
     }
 
-    private void    setNongLI_KongWang_XingZuo(){
+    private void setNongLI_KongWang_XingZuo() {
         String nongli = "";
         try {
             Calendar c = Calendar.getInstance();
@@ -121,18 +122,16 @@ public class CalendarFragment extends XingXiangYiFragment {
 
             textViewGongLi.setText("公历：" + Year + "年" + (Month + 1) + "月" + Day + "日");
 
-            ganzhiMap = ganzhiCal.get_Map_GanZhi_NianYueRiShi(Year, Month, Day, Hour, true);
+            ganzhiMap = ganzhiCal.get_Map_GanZhi_NianYueRiShi(Year, Month, Day, 0, true);
             nian_ganzhi = (String) ganzhiMap.get("年");
             yue_ganzhi = (String) ganzhiMap.get("月");
             ri_ganzhi = (String) ganzhiMap.get("日");
             shi_ganzhi = (String) ganzhiMap.get("时");
 
-
             textViewGanZhi.setText("干支：" + nian_ganzhi + "年 " + yue_ganzhi + "月 " + ri_ganzhi + "日 ");
             map = GanZhiCalendar.get_JieQiInMonth(Year, Month, true);
             textViewJieQi.setText(map.get("节气名称") + "：" + map.get("节气日期"));
             textViewHours.setText("时辰：" + get12ShiChen(shi_ganzhi));
-
 
             setNongLI_KongWang_XingZuo();
         }
@@ -140,7 +139,7 @@ public class CalendarFragment extends XingXiangYiFragment {
 
     private String get12ShiChen(String sgz) {
         String rigan = sgz.charAt(0) + "";
-        String rizhi = sgz.charAt(1) + "";
+        //String rizhi = sgz.charAt(1) + "";
 
         int G = 0, Z = 0;
 
