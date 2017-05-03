@@ -1,0 +1,67 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <DatePicker
+            android:id="@+id/wannianli_datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="true"
+            android:endYear="2100"
+            android:spinnersShown="true"
+            android:startYear="1900" />
+
+        <TextView
+            android:id="@+id/wannianli_textViewGongLi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/wannianli_textViewGanZhi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_light"
+            android:layout_marginTop="5dp"
+            android:text="干支：壬辰年 壬子月 戊辰日"
+            android:textColor="#ffffff">
+        </TextView>
+
+        <TextView
+            android:id="@+id/textViewNongLi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="农历：六月十六" />
+
+        <TextView
+            android:id="@+id/textViewKongWang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="空亡：戌、亥" />
+
+        <TextView
+            android:id="@+id/textViewXingZuo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="星座：天蝎座" />
+
+        <TextView
+            android:id="@+id/wannianli_textViewJieQi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="立春：" />
+
+        <TextView
+            android:id="@+id/wannianli_textViewHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:text="时辰：子(23~1),丑(1~3)" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -1,8 +1,7 @@
 package zhangfei.xingxiangyi.activitys;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,9 +11,7 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ZoomControls;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -77,7 +74,7 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
             fos.flush();
             fos.close();
 
-            Toast msg = Toast.makeText(BaseDispalyActivity.this, file.getName() + " 已经保存至 历史记录", Toast.LENGTH_LONG);
+            Toast msg = Toast.makeText(BaseDispalyActivity.this, file.getName() + " 已经保存", Toast.LENGTH_LONG);
             msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
             msg.show();
         } catch (Exception e) {
@@ -98,8 +95,6 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -150,11 +145,9 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
                 e.printStackTrace();
             }
 
-
             editText.destroyDrawingCache();
             //editText.setDrawingCacheEnabled(false);
         }
-
 
         private Bitmap loadBitmapFromView(View v) {
             int w = editText.getWidth();

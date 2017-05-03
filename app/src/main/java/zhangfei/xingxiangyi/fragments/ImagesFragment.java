@@ -12,10 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -172,16 +175,13 @@ public class ImagesFragment extends XingXiangYiFragment {
 
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView text1;
-        public TextView text2;
+        public CircleImageView image;
+        public TextView text;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            text1 = (TextView) itemView.findViewById(android.R.id.text1);
-            text2 = (TextView) itemView.findViewById(android.R.id.text2);
-
-            text1.setTextColor(Color.DKGRAY);
-            text2.setTextColor(Color.LTGRAY);
+            image = (CircleImageView) itemView.findViewById(R.id.circle_image_view);
+            text = (TextView) itemView.findViewById(R.id.text);
         }
     }
 
@@ -195,7 +195,7 @@ public class ImagesFragment extends XingXiangYiFragment {
 
         @Override
         public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = inflater.inflate(android.R.layout.simple_list_item_2, parent, false);
+            View view = inflater.inflate(R.layout.image_and_text_item, parent, false);
             ItemViewHolder holder = new ItemViewHolder(view);
             return holder;
         }
@@ -203,8 +203,8 @@ public class ImagesFragment extends XingXiangYiFragment {
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
             XingXiangYiBean bean = mItems.get(position);
-            holder.text1.setText(String.valueOf(bean.file.getName()));
-            holder.text2.setText(String.valueOf(bean.file.getPath()));
+            Glide.with(getActivity()).load(android.R.drawable.ic_menu_gallery).crossFade(1000).into(holder.image);
+            holder.text.setText(String.valueOf(bean.file.getName()));
         }
 
         @Override
