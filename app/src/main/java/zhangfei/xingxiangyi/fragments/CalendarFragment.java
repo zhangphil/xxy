@@ -90,6 +90,11 @@ public class CalendarFragment extends XingXiangYiFragment {
 
         datePicker.init(Year, Month, Day, new DatePickerOnDateChangedListenerImpl());
 
+
+        setNongLI_KongWang_XingZuo();
+    }
+
+    private void    setNongLI_KongWang_XingZuo(){
         String nongli = "";
         try {
             Calendar c = Calendar.getInstance();
@@ -99,10 +104,9 @@ public class CalendarFragment extends XingXiangYiFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         textViewNongLi.setText("农历：" + nongli);
-
         kongwang = ganzhiCal.getKongWang(ri_ganzhi);
-
         textViewKongWang.setText("空亡：" + kongwang);
         textViewXingZuo.setText("星座：" + XingZuo.getXingZuoName(Month + 1, Day));
     }
@@ -128,6 +132,9 @@ public class CalendarFragment extends XingXiangYiFragment {
             map = GanZhiCalendar.get_JieQiInMonth(Year, Month, true);
             textViewJieQi.setText(map.get("节气名称") + "：" + map.get("节气日期"));
             textViewHours.setText("时辰：" + get12ShiChen(shi_ganzhi));
+
+
+            setNongLI_KongWang_XingZuo();
         }
     }
 
@@ -162,7 +169,6 @@ public class CalendarFragment extends XingXiangYiFragment {
 
             ShiChen12 = ShiChen12 + s + "(" + start + "~" + end + ") ";
         }
-
 
         return ShiChen12;
     }

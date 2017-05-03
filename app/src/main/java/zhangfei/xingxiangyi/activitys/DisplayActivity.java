@@ -450,77 +450,77 @@ public class DisplayActivity extends XingXiangYiActivity {
     }
 
 
-    private void actionChoose(int position) {
-        switch (position) {
-            //保存
-            case 1:
-                if (FILE_PATH == null) {
-                    dialogInputFileName.show();
-                } else
-                    saveToFile(FILE_PATH);
-
-                return;
-
-            //编辑
-            case 2:
-                editable = !editable;
-                editText.setFocusable(editable);
-                editText.setFocusableInTouchMode(editable);
-                if (editable)
-                    editText.requestFocus();
-
-                String s = editable ? "编辑[开]" : "编辑[关]";
-                items[2] = s;
-
-                return;
-
-            //删除
-            case 3:
-                if (FILE_PATH != null) {
-                    removeFile(FILE_PATH);
-
-                    Intent it = new Intent(this, PaiGua.class);
-                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    it.putExtra(getString(R.string.qiguafangshi), QiGuaFangShi);
-                    startActivity(it);
-                    this.finish();
-                } else {
-                    //Toast msg=Toast.makeText(DisplayActivity.this,"此卦还没有保存", Toast.LENGTH_LONG);
-                    //	msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
-                    //	msg.show();
-
-                    this.finish();
-                }
-
-                return;
-
-            //设置
-            case 4:
-                new SetDisplayActivity();
-
-                return;
-
-            default:
-                return;
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int ID = item.getItemId();
-
-        switch (ID) {
-            case android.R.id.home:
-                Intent intent = new Intent(this, PaiGua.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra(getString(R.string.qiguafangshi), QiGuaFangShi);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-    }
+//    private void actionChoose(int position) {
+//        switch (position) {
+//            //保存
+//            case 1:
+//                if (FILE_PATH == null) {
+//                    dialogInputFileName.show();
+//                } else
+//                    saveToFile(FILE_PATH);
+//
+//                return;
+//
+//            //编辑
+//            case 2:
+//                editable = !editable;
+//                editText.setFocusable(editable);
+//                editText.setFocusableInTouchMode(editable);
+//                if (editable)
+//                    editText.requestFocus();
+//
+//                String s = editable ? "编辑[开]" : "编辑[关]";
+//                items[2] = s;
+//
+//                return;
+//
+//            //删除
+//            case 3:
+//                if (FILE_PATH != null) {
+//                    removeFile(FILE_PATH);
+//
+//                    Intent it = new Intent(this, PaiGua.class);
+//                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    it.putExtra(getString(R.string.qiguafangshi), QiGuaFangShi);
+//                    startActivity(it);
+//                    this.finish();
+//                } else {
+//                    //Toast msg=Toast.makeText(DisplayActivity.this,"此卦还没有保存", Toast.LENGTH_LONG);
+//                    //	msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
+//                    //	msg.show();
+//
+//                    this.finish();
+//                }
+//
+//                return;
+//
+//            //设置
+//            case 4:
+//                new SetDisplayActivity();
+//
+//                return;
+//
+//            default:
+//                return;
+//        }
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int ID = item.getItemId();
+//
+//        switch (ID) {
+//            case android.R.id.home:
+//                Intent intent = new Intent(this, PaiGua.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.putExtra(getString(R.string.qiguafangshi), QiGuaFangShi);
+//                startActivity(intent);
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//
+//    }
 
 
     private class SetDisplayActivity {
