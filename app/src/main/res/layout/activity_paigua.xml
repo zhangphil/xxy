@@ -8,61 +8,84 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBoxGenderMale"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="男"
-            android:textAppearance="?android:textAppearanceSmall" />
+            android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/checkBoxGenderFemale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="女"
-            android:textAppearance="?android:textAppearanceSmall" />
+            <CheckBox
+                android:id="@+id/checkBoxGenderMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:textAppearance="?android:textAppearanceSmall" />
+
+            <CheckBox
+                android:id="@+id/checkBoxGenderFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="女"
+                android:textAppearance="?android:textAppearanceSmall" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtViewBirthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_round_corner"
             android:ems="8"
             android:text="生年:0000"
             android:textAppearance="?android:textAppearanceSmall" />
 
         <EditText
             android:id="@+id/editTextName"
-            android:layout_width="100dip"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:ems="15"
+            android:hint="姓名"
             android:inputType="textPersonName"
             android:textAppearance="?android:textAppearanceSmall" />
 
-
         <EditText
             android:id="@+id/editTextThings"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:ems="10"
             android:inputType="textMultiLine"
             android:lines="2"
+            android:hint="事项"
             android:textAppearance="?android:textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/txtViewYearMonthDay"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0000年00月00日"
-            android:textAppearance="?android:textAppearanceSmall" />
+            android:layout_marginTop="5dp">
 
-        <TextView
-            android:id="@+id/txtViewHourMinute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00时00分"
-            android:textAppearance="?android:textAppearanceSmall" />
+            <TextView
+                android:id="@+id/txtViewYearMonthDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/bg_round_corner"
+                android:text="0000年00月00日"
+                android:textAppearance="?android:textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/txtViewHourMinute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_round_corner"
+                android:text="00时00分"
+                android:textAppearance="?android:textAppearanceSmall" />
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -133,18 +156,21 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_margin="10dp"
-                android:id="@+id/txtViewPaiPan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="开始排卦"
-                android:textAppearance="?android:textAppearanceLarge"
-                android:textColor="@android:color/white" />
 
         </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/txtViewPaiPan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="开始排卦"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
 

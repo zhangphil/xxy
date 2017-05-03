@@ -17,9 +17,9 @@
             android:layout_height="?actionBarSize"
             android:background="@android:color/white"
             app:tabIndicatorColor="@android:color/holo_red_light"
-            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorHeight="3dp"
             app:tabSelectedTextColor="@android:color/holo_red_light"
-            app:tabTextColor="@android:color/holo_red_light" />
+            app:tabTextColor="@android:color/darker_gray" />
 
     </android.support.design.widget.AppBarLayout>
 

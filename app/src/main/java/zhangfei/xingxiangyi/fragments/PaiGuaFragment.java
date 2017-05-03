@@ -8,10 +8,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +34,7 @@ import zhangfei.xingxiangyi.core.GuaFormat;
  * Created by Phil on 2017/5/3.
  */
 
-public class PaiGuaFragment extends XingXiangYiFragment{
+public class PaiGuaFragment extends XingXiangYiFragment {
     private boolean SHOUGONGZHIDING = true;
 
     private String NAME = "";
@@ -63,7 +63,7 @@ public class PaiGuaFragment extends XingXiangYiFragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle b=getArguments();
+        Bundle b = getArguments();
         String qgfs = b.getString(getString(R.string.qiguafangshi));
 
         if (qgfs.equals(getString(R.string.shougongzhiding)))
@@ -75,7 +75,7 @@ public class PaiGuaFragment extends XingXiangYiFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_paigua,container,false);
+        return inflater.inflate(R.layout.activity_paigua, container, false);
     }
 
     @Override
@@ -91,18 +91,16 @@ public class PaiGuaFragment extends XingXiangYiFragment{
 
         txtViewBirthday = (TextView) view.findViewById(R.id.txtViewBirthday);
         txtViewBirthday.setClickable(true);
-        txtViewBirthday.setFocusable(true);
+        //txtViewBirthday.setFocusable(true);
         //txtViewBirthday.setFocusableInTouchMode(true);
         txtViewBirthday.setOnClickListener(new TextViewBirthdayListener(getActivity()));
 
 
         nameEditText = (EditText) view.findViewById(R.id.editTextName);
-        nameEditText.setHint("姓名");
-
+        //nameEditText.setHint("姓名");
 
         editTextThings = (EditText) view.findViewById(R.id.editTextThings);
-        editTextThings.setHint("占卜事项");
-
+        //editTextThings.setHint("占卜事项");
 
         Calendar cal = Calendar.getInstance();
         Year = cal.get(Calendar.YEAR);
@@ -139,16 +137,12 @@ public class PaiGuaFragment extends XingXiangYiFragment{
 
 
         TextView txtViewPaiPan = (TextView) view.findViewById(R.id.txtViewPaiPan);
-        txtViewPaiPan.setTextColor(Color.WHITE);
-        txtViewPaiPan.setGravity(Gravity.CENTER_HORIZONTAL + Gravity.CENTER_VERTICAL);
+        //一个继承自ShapeDrawable更为通用、可以直接使用的形状
+        PaintDrawable drawable = new PaintDrawable(Color.RED);
+        drawable.setCornerRadius(15);
+        txtViewPaiPan.setBackground(drawable);
+
         txtViewPaiPan.setOnClickListener(new TextViewPaiPanListener());
-
-        //Bitmap bitmap=Utils.makeBitmap(175,40);
-        //Bitmap rcbitmap=Utils.getRoundedCornerBitmap(bitmap,2.0f);
-        //BitmapDrawable bd= new BitmapDrawable(null,rcbitmap);
-        txtViewPaiPan.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
-        //txtViewPaiPan.setBackgroundDrawable( getResources().getDrawable( android.R.drawable.dialog_holo_light_frame));
-
 
         if (!SHOUGONGZHIDING) {
             txtView6Yao.setVisibility(View.GONE);
@@ -160,43 +154,9 @@ public class PaiGuaFragment extends XingXiangYiFragment{
         }
     }
 
-	/*
-    Bitmap	makeBitmap(int w,int h)
-	{
-		Bitmap bmp= Bitmap.createBitmap(w,h, Config.ARGB_8888);
-		Canvas canvas = new Canvas(bmp);
-		canvas.drawColor(0xff33B5E5);
-
-		return	bmp;
-	}
-
-	//获得圆角图片的方法
-	Bitmap getRoundedCornerBitmap(Bitmap bitmap,float roundPx)
-	{
-		Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
-
-		Canvas canvas = new Canvas(output);
-		int color = 0xff424242;
-
-		Paint paint = new Paint();
-		Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-		RectF rectF = new RectF(rect);
-
-		paint.setAntiAlias(true);
-		canvas.drawARGB(0, 0, 0, 0);
-		paint.setColor(color);
-
-		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-		paint.setXfermode(new PorterDuffXfermode(android.graphics.PorterDuff.Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, rect, rect, paint);
-
-		return output;
-	}
-	*/
-
 
     /*在这里开始相应“开始排卦”按钮跳转到另外一个Activity*/
-    class TextViewPaiPanListener implements TextView.OnClickListener {
+    private class TextViewPaiPanListener implements TextView.OnClickListener {
         private Bundle bundle = null;
 
         public void onClick(View v) {
@@ -233,7 +193,7 @@ public class PaiGuaFragment extends XingXiangYiFragment{
             }
         } else {
             gy = "";
-			/*随机生成卦爻的值*/
+            /*随机生成卦爻的值*/
 
             Random rand = new Random();
 
@@ -274,10 +234,8 @@ public class PaiGuaFragment extends XingXiangYiFragment{
 
         bundle.putString("卦爻", gy);
 
-
         return bundle;
     }
-
 
     private class TextViewYaoListener implements TextView.OnClickListener {
         private AlertDialog yaoDialog = null;
@@ -289,61 +247,6 @@ public class PaiGuaFragment extends XingXiangYiFragment{
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("选择卦爻");
             builder.setSingleChoiceItems(gua6Yao, -1, new TextViewYaoListener.DialogInterfaceOnClickListenerImpl());
-
-			/*
-			builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-											{
-												public void onClick(DialogInterface dialog, int id)
-												{
-													if(index<0)
-														return;
-
-													txtView.setText( gua6Yao[index] );
-
-													if(txtView==txtView1Yao)
-													{
-														YaoValue[0]=index;
-														return;
-													}
-													if(txtView==txtView2Yao)
-													{
-														YaoValue[1]=index;
-														return;
-													}
-													if(txtView==txtView3Yao)
-													{
-														YaoValue[2]=index;
-														return;
-													}
-													if(txtView==txtView4Yao)
-													{
-														YaoValue[3]=index;
-														return;
-													}
-													if(txtView==txtView5Yao)
-													{
-														YaoValue[4]=index;
-														return;
-													}
-													if(txtView==txtView6Yao)
-													{
-														YaoValue[5]=index;
-														return;
-													}
-												}
-											}
-									);
-
-			builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-											{
-												public void onClick(DialogInterface dialog, int id)
-												{
-													index=-1;
-												}
-											}
-									);
-
-			*/
 
             yaoDialog = builder.create();
         }
@@ -553,5 +456,3 @@ public class PaiGuaFragment extends XingXiangYiFragment{
         }
     }
 }
-
-
