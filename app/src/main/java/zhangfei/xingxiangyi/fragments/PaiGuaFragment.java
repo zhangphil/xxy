@@ -139,7 +139,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
         TextView txtViewPaiPan = (TextView) view.findViewById(R.id.txtViewPaiPan);
         //一个继承自ShapeDrawable更为通用、可以直接使用的形状
-        PaintDrawable drawable = new PaintDrawable(Color.RED);
+        PaintDrawable drawable = new PaintDrawable(0xffff4444);//0xffff4444 = android.R.color.holo_red_light
         drawable.setCornerRadius(15);
         txtViewPaiPan.setBackground(drawable);
 
@@ -369,7 +369,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             timeDialog.setTitle("设置时、分");
 
 			/*
-			timeDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
+            timeDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 
 		           }

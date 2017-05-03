@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/bg_round_corner"
-            android:ems="8"
             android:text="生年:0000"
             android:textAppearance="?android:textAppearanceSmall" />
 
