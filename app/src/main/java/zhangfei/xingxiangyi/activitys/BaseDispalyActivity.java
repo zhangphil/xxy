@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,7 +35,9 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_displaygua);
+        View view = LayoutInflater.from(this).inflate(R.layout.activity_displaygua, null);
+        setContentView(view);
+        view.setKeepScreenOn(true);
 
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
 

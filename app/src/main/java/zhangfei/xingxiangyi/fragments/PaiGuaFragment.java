@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -22,6 +23,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.xw.repo.XEditText;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -38,7 +41,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
     private boolean SHOUGONGZHIDING = true;
 
     private String NAME = "";
-    private EditText nameEditText = null;
+    private XEditText nameEditText = null;
 
     private String THINGS = "";
     private String GENDER = "男";
@@ -47,7 +50,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
     private CheckBox genderMale = null, genderFemale = null;
     private TextView txtViewBirthday = null;
 
-    private EditText editTextThings = null;
+    private XEditText editTextThings = null;
 
     private TextView txtViewYearMonthDay = null, txtViewHourMinute = null;
     private int Year = 0, Month = 0, Day = 0, Hour = 0, Minute = 0;
@@ -75,6 +78,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return inflater.inflate(R.layout.activity_paigua, container, false);
     }
 
@@ -91,15 +95,13 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
         txtViewBirthday = (TextView) view.findViewById(R.id.txtViewBirthday);
         txtViewBirthday.setClickable(true);
-        //txtViewBirthday.setFocusable(true);
-        //txtViewBirthday.setFocusableInTouchMode(true);
         txtViewBirthday.setOnClickListener(new TextViewBirthdayListener(getActivity()));
 
 
-        nameEditText = (EditText) view.findViewById(R.id.editTextName);
+        nameEditText = (XEditText) view.findViewById(R.id.editTextName);
         //nameEditText.setHint("姓名");
 
-        editTextThings = (EditText) view.findViewById(R.id.editTextThings);
+        editTextThings = (XEditText) view.findViewById(R.id.editTextThings);
         //editTextThings.setHint("占卜事项");
 
         Calendar cal = Calendar.getInstance();
@@ -119,7 +121,6 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
         txtViewYearMonthDay.setText(Year + "年" + (Month + 1) + "月" + Day + "日");
         txtViewHourMinute.setText(Hour + "时" + Minute + "分");
-
 
         TextViewYaoListener txtViewYaoListener = new TextViewYaoListener();
         txtView6Yao = (TextView) view.findViewById(R.id.txtView6Yao);
@@ -330,7 +331,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             dateDialog.setTitle("设置年、月、日");
 
 			/*
-			dateDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
+            dateDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
 		           public void onClick(DialogInterface dialog, int id) {
 
 		           }

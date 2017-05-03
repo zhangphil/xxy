@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:windowSoftInputMode="stateHidden">
+    android:background="@android:color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,7 +42,7 @@
             android:text="生年:0000"
             android:textAppearance="?android:textAppearanceSmall" />
 
-        <EditText
+        <com.xw.repo.XEditText
             android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,18 +50,20 @@
             android:ems="15"
             android:hint="姓名"
             android:inputType="textPersonName"
-            android:textAppearance="?android:textAppearanceSmall" />
+            android:textAppearance="?android:textAppearanceSmall"
+            app:x_disableClear="false" />
 
-        <EditText
+        <com.xw.repo.XEditText
             android:id="@+id/editTextThings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:ems="10"
+            android:hint="事项"
             android:inputType="textMultiLine"
             android:lines="2"
-            android:hint="事项"
-            android:textAppearance="?android:textAppearanceSmall" />
+            android:textAppearance="?android:textAppearanceSmall"
+            app:x_disableClear="false" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -106,7 +108,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="上 爻"
+                    android:background="@drawable/bg_round_corner"
+                    android:text="上爻"
                     android:textAppearance="?android:textAppearanceMedium" />
 
                 <TextView
@@ -115,7 +118,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dip"
-                    android:text="五 爻"
+                    android:background="@drawable/bg_round_corner"
+                    android:text="五爻"
                     android:textAppearance="?android:textAppearanceMedium" />
 
                 <TextView
@@ -124,7 +128,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dip"
-                    android:text="四 爻"
+                    android:background="@drawable/bg_round_corner"
+                    android:text="四爻"
                     android:textAppearance="?android:textAppearanceMedium" />
 
                 <TextView
@@ -133,7 +138,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dip"
-                    android:text="三 爻"
+                    android:background="@drawable/bg_round_corner"
+                    android:text="三爻"
                     android:textAppearance="?android:textAppearanceMedium" />
 
                 <TextView
@@ -142,7 +148,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dip"
-                    android:text="二 爻"
+                    android:background="@drawable/bg_round_corner"
+                    android:text="二爻"
                     android:textAppearance="?android:textAppearanceMedium" />
 
                 <TextView
@@ -151,7 +158,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dip"
-                    android:text="初 爻"
+                    android:background="@drawable/bg_round_corner"
+                    android:text="初爻"
                     android:textAppearance="?android:textAppearanceMedium" />
 
             </LinearLayout>

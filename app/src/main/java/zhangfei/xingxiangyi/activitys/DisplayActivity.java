@@ -5,7 +5,6 @@ import android.os.Handler;
 
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.widget.EditText;
 import android.view.Gravity;
 
@@ -15,7 +14,6 @@ import java.io.FileOutputStream;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.Context;
 import android.view.View;
 import android.widget.CheckBox;
@@ -31,6 +29,7 @@ import android.graphics.Paint;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.xw.repo.XEditText;
 
 import org.json.*;
 
@@ -56,7 +55,7 @@ public class DisplayActivity extends XingXiangYiActivity {
     private EditText editText = null;
     private boolean editable = false;
 
-    private EditText inputFileNameEditText = null;
+    private XEditText inputFileNameEditText = null;
     private AlertDialog dialogInputFileName = null;
 
     private int ZOOM_SIZE = 16;
@@ -71,13 +70,15 @@ public class DisplayActivity extends XingXiangYiActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_displaygua);
+        View view = LayoutInflater.from(this).inflate(R.layout.activity_displaygua, null);
+        setContentView(view);
+        view.setKeepScreenOn(true);
 
         items[2] = editable ? "编辑[开]" : "编辑[关]";
 
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
 
-        inputFileNameEditText = new EditText(this);
+        inputFileNameEditText = new XEditText(this);
         dialogInputFileName = new AlertDialog.Builder(this)
                 .setTitle("输入文件名")
                 .setIcon(android.R.drawable.ic_dialog_info)
@@ -86,10 +87,6 @@ public class DisplayActivity extends XingXiangYiActivity {
                 .setNegativeButton("取消", null)
                 .create();
 
-
-        //如果打算接收用户编辑EditText则设置下面两句,如果不允许编辑EditText，则全部设置false
-        editText.setFocusable(editable);
-        editText.setFocusableInTouchMode(editable);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
         editText.setMinWidth(displayMetrics.widthPixels);
@@ -112,8 +109,7 @@ public class DisplayActivity extends XingXiangYiActivity {
             editText.setTextSize(DISPLAY_EDIT_TEXT_FONT_SIZE);
         }
 
-
-        Bundle bundle = this.getIntent().getBundleExtra("UserData");
+        Bundle bundle = getIntent().getBundleExtra("UserData");
 
         QiGuaFangShi = bundle.getString(getString(R.string.qiguafangshi));
 
@@ -141,7 +137,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         inputFileNameEditText.setText(DEFAULT_FILE_NAME);
         inputFileNameEditText.selectAll();
         inputFileNameEditText.setSelectAllOnFocus(true);
-
 
         if (!name.equals(getResources().getString(R.string.unknown)))
             editText.append(name + ",");
@@ -247,7 +242,14 @@ public class DisplayActivity extends XingXiangYiActivity {
         fabEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editable = !editable;
+                if (editable) {
+                    Toast.makeText(getApplicationContext(), "打开编辑", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "关闭编辑", Toast.LENGTH_SHORT).show();
+                }
 
+                editText.setFocusable(editable);
             }
         });
 
