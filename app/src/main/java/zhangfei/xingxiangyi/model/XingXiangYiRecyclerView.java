@@ -1,8 +1,6 @@
 package zhangfei.xingxiangyi.model;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+//import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,14 +76,14 @@ public class XingXiangYiRecyclerView extends RecyclerView {
             }
         });
 
-        Paint paint = new Paint();
-        paint.setStrokeWidth(1);
-        paint.setColor(Color.LTGRAY);
-        paint.setAntiAlias(true);
-        this.addItemDecoration(
-                new HorizontalDividerItemDecoration.Builder(getContext())
-                        .paint(paint)
-                        .build());
+//        Paint paint = new Paint();
+//        paint.setStrokeWidth(1);
+//        paint.setColor(Color.LTGRAY);
+//        paint.setAntiAlias(true);
+//        this.addItemDecoration(
+//                new HorizontalDividerItemDecoration.Builder(getContext())
+//                        .paint(paint)
+//                        .build());
     }
 
     public void setXingXiangYiRecyclerViewClickListener(XingXiangYiRecyclerViewClickListener l) {
