@@ -1,6 +1,5 @@
 package zhangfei.xingxiangyi.fragments;
 
-import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +8,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.huibin.androidsegmentcontrol.SegmentControl;
 
 import zhangfei.xingxiangyi.R;
-import zhangfei.xingxiangyi.utils.Util;
 
 /**
  * Created by Phil on 2017/5/2.
@@ -28,18 +25,11 @@ public class ImageAndTextFragment extends XingXiangYiFragment {
     private XingXiangYiFragment contentsFragment;
     private XingXiangYiFragment imagesFragment;
 
-    private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contentsFragment = new ContentsFragment();
         imagesFragment = new ImagesFragment();
-
-        boolean has = Util.hasPermissions(getContext(), permissions[0], permissions[1]);
-        if (!has) {
-            Toast.makeText(getActivity(), "星象仪未能获取读写权限，不能正常使用", Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override

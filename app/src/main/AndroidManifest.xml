@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activitys.PaiGua" />
         <activity android:name=".activitys.DisplayActivity" />
         <activity android:name=".activitys.ImageActivity" />
         <activity android:name=".activitys.BaseDispalyActivity" />

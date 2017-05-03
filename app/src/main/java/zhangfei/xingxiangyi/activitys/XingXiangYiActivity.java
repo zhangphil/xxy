@@ -1,27 +1,37 @@
 package zhangfei.xingxiangyi.activitys;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import java.io.File;
 
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.core.BaseData;
+import zhangfei.xingxiangyi.utils.Util;
 
 /**
  * Created by Phil on 2017/4/25.
  */
 
 public class XingXiangYiActivity extends AppCompatActivity {
+    private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         //getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        boolean has = Util.hasPermissions(this, permissions[0], permissions[1]);
+        if (!has) {
+            Toast.makeText(this, "星象仪未能获取读写权限，不能正常使用", Toast.LENGTH_LONG).show();
+        }
 
 
         /** 全局初始化BaseData一次 */
