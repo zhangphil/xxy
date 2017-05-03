@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import zhangfei.xingxiangyi.activitys.XingXiangYiActivity;
 import zhangfei.xingxiangyi.fragments.CalendarFragment;
-import zhangfei.xingxiangyi.fragments.ContentsFragment;
 import zhangfei.xingxiangyi.fragments.GuaFragmentEntrance;
 import zhangfei.xingxiangyi.fragments.ImageAndTextFragment;
 import zhangfei.xingxiangyi.fragments.XingXiangYiFragment;
@@ -33,7 +32,6 @@ public class MainActivity extends XingXiangYiActivity {
         fragments.add(contentsFragment);
         XingXiangYiFragment calendarFragment = new CalendarFragment();
         fragments.add(calendarFragment);
-
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setSmoothScrollingEnabled(true);
