@@ -46,6 +46,4 @@ dependencies {
     compile 'com.xw.repo:xedittext:2.0.2'
 
     compile 'me.kareluo.ui:popmenu:1.1.0'
-
-    compile 'org.greenrobot:eventbus:3.0.0'
 }
