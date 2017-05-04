@@ -10,9 +10,8 @@ import android.view.View;
 
 //import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
-
+import me.kareluo.ui.OptionMenuView;
 import zhangfei.xingxiangyi.utils.RecyclerViewUtil;
-
 
 /**
  * Created by Phil on 2017/5/2.

@@ -15,6 +15,33 @@ import java.io.File;
  * Created by Phil on 2017/5/3.
  */
 public class Util {
+    public static void SelectSortSort(File[] fs) {
+
+        /**选择排序
+         * 排序结果根据“最后修改时间”大到小逆
+         * */
+        int LEN = fs.length;
+        int index, j, min;
+        long lmin, lj;
+        File tmpFile = null;
+        for (index = 0; index < LEN - 1; index++) {
+            min = index;
+            /**查找最大值*/
+            for (j = index + 1; j < LEN; j++) {
+                lmin = Long.valueOf(fs[min].lastModified());
+                lj = Long.valueOf(fs[j].lastModified());
+
+                if (lmin < lj)
+                    min = j;
+            }
+
+            /**交换*/
+            tmpFile = fs[min];
+            fs[min] = fs[index];
+            fs[index] = tmpFile;
+        }
+    }
+
     public static void shareImage(@NonNull Context context, @NonNull File file) {
         Uri uri;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

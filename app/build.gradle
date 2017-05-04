@@ -44,4 +44,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     compile 'com.xw.repo:xedittext:2.0.2'
+
+    compile 'me.kareluo.ui:popmenu:1.1.0'
 }

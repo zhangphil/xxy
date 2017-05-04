@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,7 +17,6 @@ import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -29,10 +26,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import me.kareluo.ui.OptionMenu;
+import me.kareluo.ui.OptionMenuView;
+import me.kareluo.ui.PopupMenuView;
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.activitys.ImageActivity;
 import zhangfei.xingxiangyi.model.XingXiangYiBean;
 import zhangfei.xingxiangyi.model.XingXiangYiRecyclerView;
+import zhangfei.xingxiangyi.utils.Util;
 
 /**
  * Created by Phil on 2017/5/2.
@@ -75,7 +76,8 @@ public class ImagesFragment extends XingXiangYiFragment {
 
             @Override
             public void onItemLongClick(int position, View view) {
-                showPopupMenu(view, position);
+                showMenu(position, view);
+                //showPopupMenu(view, position);
             }
         });
     }
@@ -133,7 +135,7 @@ public class ImagesFragment extends XingXiangYiFragment {
         File[] fs = f.listFiles();
         int cnt = fs.length;
 
-        SelectSortSort(fs);
+        Util.SelectSortSort(fs);
 
         String sfn;
         for (int i = 0; i < cnt; i++) {
@@ -149,34 +151,6 @@ public class ImagesFragment extends XingXiangYiFragment {
 
         return lists;
     }
-
-    private void SelectSortSort(File[] fs) {
-
-        /**选择排序
-         * 排序结果根据“最后修改时间”大到小逆
-         * */
-        int LEN = fs.length;
-        int index, j, min;
-        long lmin, lj;
-        File tmpFile = null;
-        for (index = 0; index < LEN - 1; index++) {
-            min = index;
-            /**查找最大值*/
-            for (j = index + 1; j < LEN; j++) {
-                lmin = Long.valueOf(fs[min].lastModified());
-                lj = Long.valueOf(fs[j].lastModified());
-
-                if (lmin < lj)
-                    min = j;
-            }
-
-            /**交换*/
-            tmpFile = fs[min];
-            fs[min] = fs[index];
-            fs[index] = tmpFile;
-        }
-    }
-
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
         public CircleImageView image;
@@ -224,43 +198,29 @@ public class ImagesFragment extends XingXiangYiFragment {
         mCompositeDisposable.clear();
     }
 
-
-    private void showPopupMenu(View view, final int position) {
-        // View当前PopupMenu显示的相对View的位置
-        PopupMenu popupMenu = new PopupMenu(getContext(), view);
-
-        // menu布局
-        popupMenu.getMenuInflater().inflate(R.menu.menu_list, popupMenu.getMenu());
-
-        // menu的item点击事件
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+    private void showMenu(final int pos, View view) {
+        PopupMenuView menuView = new PopupMenuView(getContext(), R.menu.menu_list, new MenuBuilder(getContext()));
+        menuView.setOnMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_open) {
-                    openFile(mItems.get(position));
+            public boolean onOptionMenuClick(int position, OptionMenu menu) {
+                if (menu.getId() == R.id.action_open) {
+                    openFile(mItems.get(pos));
                 }
 
-                if (item.getItemId() == R.id.action_del) {
-                    File f = mItems.get(position).file;
+                if (menu.getId() == R.id.action_del) {
+                    File f = mItems.get(pos).file;
                     f.delete();
                     Toast.makeText(getActivity(), f.getName() + "已删除", Toast.LENGTH_SHORT).show();
 
-                    mItems.remove(position);
+                    mItems.remove(pos);
                     mItemAdapter.notifyDataSetChanged();
                 }
 
-                return false;
+                return true;
             }
         });
 
-        // PopupMenu关闭事件
-        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        popupMenu.show();
+        // 显示在控件的周围
+        menuView.show(view);
     }
 }
