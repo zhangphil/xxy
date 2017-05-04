@@ -2,20 +2,24 @@ package zhangfei.xingxiangyi.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -70,8 +74,8 @@ public class ImagesFragment extends XingXiangYiFragment {
             }
 
             @Override
-            public void onPopupListClick(View contextView, int contextPosition, int position) {
-
+            public void onItemLongClick(int position, View view) {
+                showPopupMenu(view, position);
             }
         });
     }
@@ -218,5 +222,45 @@ public class ImagesFragment extends XingXiangYiFragment {
         super.onDestroy();
         //如果退出程序，就清除后台任务
         mCompositeDisposable.clear();
+    }
+
+
+    private void showPopupMenu(View view, final int position) {
+        // View当前PopupMenu显示的相对View的位置
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
+
+        // menu布局
+        popupMenu.getMenuInflater().inflate(R.menu.menu_list, popupMenu.getMenu());
+
+        // menu的item点击事件
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_open) {
+                    openFile(mItems.get(position));
+                }
+
+                if (item.getItemId() == R.id.action_del) {
+                    File f = mItems.get(position).file;
+                    f.delete();
+                    Toast.makeText(getActivity(), f.getName() + "已删除", Toast.LENGTH_SHORT).show();
+
+                    mItems.remove(position);
+                    mItemAdapter.notifyDataSetChanged();
+                }
+
+                return false;
+            }
+        });
+
+        // PopupMenu关闭事件
+        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu menu) {
+                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        popupMenu.show();
     }
 }
