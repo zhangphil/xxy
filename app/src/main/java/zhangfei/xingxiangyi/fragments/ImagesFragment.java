@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -60,13 +61,18 @@ public class ImagesFragment extends XingXiangYiFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mItems.clear();
+        addItems(null);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         recyclerView = (XingXiangYiRecyclerView) view.findViewById(R.id.recyclerview);
 
         mItemAdapter = new ItemAdapter(getContext());
         recyclerView.setAdapter(mItemAdapter);
-
-        addItems(null);
 
         recyclerView.setXingXiangYiRecyclerViewClickListener(new XingXiangYiRecyclerView.XingXiangYiRecyclerViewClickListener() {
             @Override
@@ -159,6 +165,7 @@ public class ImagesFragment extends XingXiangYiFragment {
         public ItemViewHolder(View itemView) {
             super(itemView);
             image = (CircleImageView) itemView.findViewById(R.id.circle_image_view);
+            image.setFillColor(ContextCompat.getColor(getContext(), R.color.e4e4e4)); //0xffff4444 == android.R.color.holo_red_light
             text = (TextView) itemView.findViewById(R.id.text);
         }
     }

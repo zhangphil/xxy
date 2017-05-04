@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.activitys.BaseDispalyActivity;
 import zhangfei.xingxiangyi.model.XingXiangYiBean;
 import zhangfei.xingxiangyi.model.XingXiangYiRecyclerView;
+import zhangfei.xingxiangyi.utils.Util;
 
 /**
  * Created by Phil on 2017/4/24.
@@ -60,12 +62,17 @@ public class ContentsFragment extends XingXiangYiFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mItems.clear();
+        addItems(null);
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         recyclerView = (XingXiangYiRecyclerView) view.findViewById(R.id.recyclerview);
         mItemAdapter = new ItemAdapter(getContext());
         recyclerView.setAdapter(mItemAdapter);
-
-        addItems(null);
 
         recyclerView.setXingXiangYiRecyclerViewClickListener(new XingXiangYiRecyclerView.XingXiangYiRecyclerViewClickListener() {
             @Override
@@ -85,7 +92,6 @@ public class ContentsFragment extends XingXiangYiFragment {
         intent.putExtra(XingXiangYiBean.TAG, bean);
         startActivity(intent);
     }
-
 
     private Observable<ArrayList> getFilesObservable(final String string) {
         return Observable.defer(new Callable<ObservableSource<ArrayList>>() {
@@ -133,7 +139,7 @@ public class ContentsFragment extends XingXiangYiFragment {
         File[] fs = f.listFiles();
         int cnt = fs.length;
 
-        SelectSortSort(fs);
+        Util.SelectSortSort(fs);
 
         String sfn;
         for (int i = 0; i < cnt; i++) {
@@ -149,34 +155,6 @@ public class ContentsFragment extends XingXiangYiFragment {
 
         return lists;
     }
-
-    private void SelectSortSort(File[] fs) {
-
-        /**选择排序
-         * 排序结果根据“最后修改时间”大到小逆
-         * */
-        int LEN = fs.length;
-        int index, j, min;
-        long lmin, lj;
-        File tmpFile = null;
-        for (index = 0; index < LEN - 1; index++) {
-            min = index;
-            /**查找最大值*/
-            for (j = index + 1; j < LEN; j++) {
-                lmin = Long.valueOf(fs[min].lastModified());
-                lj = Long.valueOf(fs[j].lastModified());
-
-                if (lmin < lj)
-                    min = j;
-            }
-
-            /**交换*/
-            tmpFile = fs[min];
-            fs[min] = fs[index];
-            fs[index] = tmpFile;
-        }
-    }
-
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
         public CircleImageView image;

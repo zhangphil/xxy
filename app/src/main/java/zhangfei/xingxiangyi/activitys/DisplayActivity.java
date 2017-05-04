@@ -1,7 +1,6 @@
 package zhangfei.xingxiangyi.activitys;
 
 import android.os.Bundle;
-import android.os.Handler;
 
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -16,17 +15,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Context;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -49,7 +41,6 @@ public class DisplayActivity extends XingXiangYiActivity {
     private FloatingActionButton fabSave;
     private FloatingActionButton fabShare;
     private FloatingActionButton fabShot;
-    private FloatingActionButton fabEdit;
     private FloatingActionButton fabDelete;
 
     private String[] items = new String[]{"请选择", "保存", "编辑[关]", "删除", "设置"};
@@ -213,7 +204,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         fabSave = (FloatingActionButton) findViewById(R.id.fab_save);
         fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         fabShot = (FloatingActionButton) findViewById(R.id.fab_shot);
-        fabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
         fabDelete = (FloatingActionButton) findViewById(R.id.fab_delete);
 
         fabSave.setOnClickListener(new View.OnClickListener() {
@@ -267,19 +257,6 @@ public class DisplayActivity extends XingXiangYiActivity {
             }
         });
 
-        fabEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editable = !editable;
-                if (editable) {
-                    Toast.makeText(getApplicationContext(), "打开编辑", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "关闭编辑", Toast.LENGTH_SHORT).show();
-                }
-
-                editText.setFocusable(editable);
-            }
-        });
 
         fabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -381,73 +358,4 @@ public class DisplayActivity extends XingXiangYiActivity {
             e.printStackTrace();
         }
     }
-
-    /*
-    private class SetDisplayActivity {
-        private CheckBox checkBoxSet1 = null;
-        private EditText editTextSet1 = null, editTextSet2 = null, editTextSet3 = null;
-        private AlertDialog dialogInputSet = null;
-        private SharedPreferences sp = null;
-        private Editor editor = null;
-
-        public SetDisplayActivity() {
-            sp = DisplayActivity.this.getSharedPreferences(getString(R.string.user_store_info), Context.MODE_PRIVATE);
-            editor = sp.edit();
-
-            LayoutInflater inflater = (LayoutInflater) (DisplayActivity.this).getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.set, null);
-
-            checkBoxSet1 = (CheckBox) view.findViewById(R.id.checkBoxSet1);
-            //checkBoxSet1.setEnabled(false);
-            checkBoxSet1.setVisibility(View.GONE);
-            //checkBoxSet1.setHeight(0);
-
-            CheckBox checkBoxSet2 = (CheckBox) view.findViewById(R.id.checkBoxSet2);
-            //checkBoxSet2.setEnabled(false);
-            checkBoxSet2.setVisibility(View.GONE);
-            //checkBoxSet2.setHeight(0);
-
-            editTextSet1 = (EditText) (view.findViewById(R.id.editTextSet1));
-            editTextSet1.setHint("字体大小：" + DISPLAY_EDIT_TEXT_FONT_SIZE);
-
-            editTextSet2 = (EditText) (view.findViewById(R.id.editTextSet2));
-            //editTextSet2.setEnabled(false);
-            editTextSet2.setVisibility(View.GONE);
-            //editTextSet2.setHeight(0);
-
-            editTextSet3 = (EditText) (view.findViewById(R.id.editTextSet3));
-            //editTextSet3.setEnabled(false);
-            editTextSet3.setVisibility(View.GONE);
-            //editTextSet3.setHeight(0);
-
-            dialogInputSet = new AlertDialog.Builder(DisplayActivity.this).setTitle("设置本页显示内容").setIcon(android.R.drawable.ic_menu_set_as).setView(view).setPositiveButton("确定", new DialogEditTextListener()).setNegativeButton("取消", null).show();
-        }
-
-
-        private class DialogEditTextListener implements DialogInterface.OnClickListener {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if (whichButton == DialogInterface.BUTTON_POSITIVE) {
-                    String s1 = editTextSet1.getText() + "".trim();
-
-                    try {
-                        if (!s1.equals("")) {
-                            DISPLAY_EDIT_TEXT_FONT_SIZE = Float.valueOf(s1);
-                            editor.putFloat(DISPLAY_EDIT_TEXT_FONT_SIZE_TAG, DISPLAY_EDIT_TEXT_FONT_SIZE);
-                        }
-
-                        editor.commit();
-
-                        editText.setTextSize(DISPLAY_EDIT_TEXT_FONT_SIZE);
-
-                        Toast msg = Toast.makeText(DisplayActivity.this, "设置已完成", Toast.LENGTH_LONG);
-                        msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
-                        msg.show();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-    */
 }
