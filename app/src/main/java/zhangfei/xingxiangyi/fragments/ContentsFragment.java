@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -28,6 +26,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import me.kareluo.ui.OptionMenu;
+import me.kareluo.ui.OptionMenuView;
+import me.kareluo.ui.PopupMenuView;
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.activitys.BaseDispalyActivity;
 import zhangfei.xingxiangyi.model.XingXiangYiBean;
@@ -74,7 +75,7 @@ public class ContentsFragment extends XingXiangYiFragment {
 
             @Override
             public void onItemLongClick(int position, View view) {
-                showPopupMenu(view, position);
+                showMenu(position, view);
             }
         });
     }
@@ -224,43 +225,30 @@ public class ContentsFragment extends XingXiangYiFragment {
         mCompositeDisposable.clear();
     }
 
-    private void showPopupMenu(View view, final int position) {
-        // View当前PopupMenu显示的相对View的位置
-        PopupMenu popupMenu = new PopupMenu(getContext(), view);
 
-        // menu布局
-        popupMenu.getMenuInflater().inflate(R.menu.menu_list, popupMenu.getMenu());
-
-        // menu的item点击事件
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+    private void showMenu(final int pos, View view) {
+        PopupMenuView menuView = new PopupMenuView(getContext(), R.menu.menu_list, new MenuBuilder(getContext()));
+        menuView.setOnMenuClickListener(new OptionMenuView.OnOptionMenuClickListener() {
             @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.action_open) {
-                    openFile(mItems.get(position));
+            public boolean onOptionMenuClick(int position, OptionMenu menu) {
+                if (menu.getId() == R.id.action_open) {
+                    openFile(mItems.get(pos));
                 }
 
-                if (item.getItemId() == R.id.action_del) {
-                    File f = mItems.get(position).file;
+                if (menu.getId() == R.id.action_del) {
+                    File f = mItems.get(pos).file;
                     f.delete();
                     Toast.makeText(getActivity(), f.getName() + "已删除", Toast.LENGTH_SHORT).show();
 
-                    mItems.remove(position);
+                    mItems.remove(pos);
                     mItemAdapter.notifyDataSetChanged();
                 }
 
-                return false;
+                return true;
             }
         });
 
-        // PopupMenu关闭事件
-        popupMenu.setOnDismissListener(new PopupMenu.OnDismissListener() {
-            @Override
-            public void onDismiss(PopupMenu menu) {
-                //Toast.makeText(getApplicationContext(), "关闭PopupMenu", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        popupMenu.show();
-
+        // 显示在控件的周围
+        menuView.show(view);
     }
 }
