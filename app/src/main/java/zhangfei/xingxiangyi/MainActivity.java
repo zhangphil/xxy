@@ -50,7 +50,7 @@ public class MainActivity extends XingXiangYiActivity implements NavigationView.
         tabLayout.setupWithViewPager(viewPager);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         //drawer.setDrawerListener(toggle);
         //toggle.syncState();
@@ -99,12 +99,14 @@ public class MainActivity extends XingXiangYiActivity implements NavigationView.
 
         if (id == R.id.nav_manage) {
 
+        } else if (id == R.id.nav_report) {
+
         } else if (id == R.id.nav_version_name) {
             Toast.makeText(getApplicationContext(), Util.getVersionName(getApplicationContext()), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_version_code) {
             Toast.makeText(getApplicationContext(), String.valueOf(Util.getVersionCode(getApplicationContext())), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_about) {
-            Toast.makeText(getApplicationContext(), "designed by zhangfei", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.designed_info, Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

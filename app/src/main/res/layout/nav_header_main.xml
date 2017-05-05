@@ -12,7 +12,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:src="@mipmap/ic_launcher"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="1px"
@@ -32,6 +32,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:text="designed by zhangfei"
+        android:text="@string/designed_info"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
 </LinearLayout>
