@@ -77,15 +77,14 @@ public class FileUtil {
          * 注意此处的写法！
          */
         mCompositeDisposable.add(
-                getFileObservable(context, bitmap)
+                getImageFileObservable(context, bitmap)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(disposableObserver)
         );
     }
 
-
-    private static Observable<File> getFileObservable(@NonNull final Context context, @NonNull final Bitmap bitmap) {
+    private static Observable<File> getImageFileObservable(@NonNull final Context context, @NonNull final Bitmap bitmap) {
         return Observable.defer(new Callable<ObservableSource<File>>() {
             @Override
             public ObservableSource<File> call() throws Exception {
@@ -95,9 +94,8 @@ public class FileUtil {
         });
     }
 
-
     public static File saveBitmapAsFile(Context context, Bitmap bitmap) {
-        String fp = getFilePath(context);
+        String fp = getSnapshotFilePath(context);
         String fn = getFileName();
 
         File file = null;
@@ -118,8 +116,13 @@ public class FileUtil {
         return file;
     }
 
-    public static String getFilePath(Context context) {
+    public static String getSnapshotFilePath(Context context) {
         String fp = context.getString(R.string.file_dir_snapshot);
+        return fp;
+    }
+
+    public static String getHistoryFilePath(Context context) {
+        String fp = context.getString(R.string.file_dir_history);
         return fp;
     }
 
@@ -163,18 +166,34 @@ public class FileUtil {
 
     public interface OnFileListener {
         void onDone(File file);
+
         void onError(Throwable e);
     }
 
 
+    public static void saveTextToFile(Context context, String string, File file, OnFileListener listener) {
+        //File file = new File(getHistoryFilePath(context));
+        FileOutputStream fos = null;
+        try {
+            //file.createNewFile();
 
+            fos = new FileOutputStream(file);
+            fos.write(string.getBytes("utf-8"));
+            fos.flush();
+            fos.close();
+
+            if (listener != null) {
+                listener.onDone(file);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void saveFile(final File file) {
         Observable.fromCallable(new Callable<File>() {
             @Override
             public File call() throws Exception {
-
-
 
                 return null;
             }

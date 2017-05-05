@@ -41,7 +41,6 @@ public class DisplayActivity extends XingXiangYiActivity {
     private FloatingActionButton fabSave;
     private FloatingActionButton fabShare;
     private FloatingActionButton fabShot;
-    private FloatingActionButton fabDelete;
 
     private String[] items = new String[]{"请选择", "保存", "编辑[关]", "删除", "设置"};
 
@@ -204,7 +203,6 @@ public class DisplayActivity extends XingXiangYiActivity {
         fabSave = (FloatingActionButton) findViewById(R.id.fab_save);
         fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         fabShot = (FloatingActionButton) findViewById(R.id.fab_shot);
-        fabDelete = (FloatingActionButton) findViewById(R.id.fab_delete);
 
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,15 +251,6 @@ public class DisplayActivity extends XingXiangYiActivity {
                     }
                 });
 
-                floatingActionMenu.close(true);
-            }
-        });
-
-
-        fabDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "删除", Toast.LENGTH_SHORT).show();
                 floatingActionMenu.close(true);
             }
         });

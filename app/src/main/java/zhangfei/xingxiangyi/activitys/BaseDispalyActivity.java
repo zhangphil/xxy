@@ -4,7 +4,6 @@ package zhangfei.xingxiangyi.activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -16,7 +15,6 @@ import com.github.clans.fab.FloatingActionMenu;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 
 import zhangfei.xingxiangyi.R;
@@ -33,9 +31,9 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
     private FloatingActionButton fabSave;
     private FloatingActionButton fabShare;
     private FloatingActionButton fabShot;
-    private FloatingActionButton fabDelete;
 
     private EditText editText = null;
+    private XingXiangYiBean xingXiangYiBean;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,9 +50,9 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
 
         try {
             Intent intent = getIntent();
-            XingXiangYiBean bean = (XingXiangYiBean) intent.getSerializableExtra(XingXiangYiBean.TAG);
+            xingXiangYiBean = (XingXiangYiBean) intent.getSerializableExtra(XingXiangYiBean.TAG);
 
-            FileInputStream fis = new FileInputStream(bean.file);
+            FileInputStream fis = new FileInputStream(xingXiangYiBean.file);
             BufferedReader br = new BufferedReader(new InputStreamReader(fis, "utf-8"));
 
             String txt = null;
@@ -70,7 +68,6 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
         initFloatingActionButton();
     }
 
-
     private void initFloatingActionButton() {
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.floating_action_menu);
         floatingActionMenu.setClosedOnTouchOutside(true);
@@ -78,11 +75,21 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
         fabSave = (FloatingActionButton) findViewById(R.id.fab_save);
         fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
         fabShot = (FloatingActionButton) findViewById(R.id.fab_shot);
-        fabDelete = (FloatingActionButton) findViewById(R.id.fab_delete);
 
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FileUtil.saveTextToFile(getApplicationContext(), editText.getText() + "", xingXiangYiBean.file, new FileUtil.OnFileListener() {
+                    @Override
+                    public void onDone(File file) {
+                        Toast.makeText(getApplicationContext(), "已保存" + file.getName(), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
 
                 floatingActionMenu.close(true);
             }
@@ -126,35 +133,5 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
                 floatingActionMenu.close(true);
             }
         });
-
-        fabDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "删除", Toast.LENGTH_SHORT).show();
-                floatingActionMenu.close(true);
-            }
-        });
-    }
-
-
-    private void saveToFile(String fp) {
-        String str = new String(editText.getText() + "");
-
-        File file = new File(fp);
-        FileOutputStream fos = null;
-        try {
-            file.createNewFile();
-
-            fos = new FileOutputStream(file);
-            fos.write(str.getBytes("utf-8"));
-            fos.flush();
-            fos.close();
-
-            Toast msg = Toast.makeText(BaseDispalyActivity.this, file.getName() + " 已经保存", Toast.LENGTH_LONG);
-            msg.setGravity(Gravity.CENTER, msg.getXOffset() / 2, msg.getYOffset() / 2);
-            msg.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
