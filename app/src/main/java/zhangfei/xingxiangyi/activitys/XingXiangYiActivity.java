@@ -18,7 +18,7 @@ import zhangfei.xingxiangyi.utils.Util;
  * Created by Phil on 2017/4/25.
  */
 
-public class XingXiangYiActivity extends AppCompatActivity {
+public class XingXiangYiActivity extends AppCompatActivity{
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override

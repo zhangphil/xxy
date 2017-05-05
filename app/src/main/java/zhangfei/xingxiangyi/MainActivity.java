@@ -1,11 +1,16 @@
 package zhangfei.xingxiangyi;
 
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,8 +19,9 @@ import zhangfei.xingxiangyi.fragments.CalendarFragment;
 import zhangfei.xingxiangyi.fragments.GuaFragmentEntrance;
 import zhangfei.xingxiangyi.fragments.ImageAndTextFragment;
 import zhangfei.xingxiangyi.fragments.XingXiangYiFragment;
+import zhangfei.xingxiangyi.utils.Util;
 
-public class MainActivity extends XingXiangYiActivity {
+public class MainActivity extends XingXiangYiActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ArrayList<XingXiangYiFragment> fragments;
 
@@ -42,6 +48,15 @@ public class MainActivity extends XingXiangYiActivity {
         viewPager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewPager);
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        //drawer.setDrawerListener(toggle);
+        //toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -64,5 +79,36 @@ public class MainActivity extends XingXiangYiActivity {
         public int getCount() {
             return fragments.size();
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_version_name) {
+            Toast.makeText(getApplicationContext(), Util.getVersionName(getApplicationContext()), Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_version_code) {
+            Toast.makeText(getApplicationContext(), String.valueOf(Util.getVersionCode(getApplicationContext())), Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_about) {
+            Toast.makeText(getApplicationContext(), "designed by zhangfei", Toast.LENGTH_SHORT).show();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

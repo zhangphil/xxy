@@ -13,4 +13,8 @@
     <string name="qiguafangshi">起卦方式</string>
     <string name="shougongzhiding">手工指定</string>
     <string name="diannaozidong">电脑自动</string>
+
+
+    <string name="navigation_drawer_open">打开侧边栏</string>
+    <string name="navigation_drawer_close">关闭侧边栏</string>
 </resources>
