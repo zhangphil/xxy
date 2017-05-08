@@ -1,5 +1,6 @@
 package zhangfei.xingxiangyi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import zhangfei.xingxiangyi.activitys.XingXiangYiActivity;
 import zhangfei.xingxiangyi.fragments.CalendarFragment;
 import zhangfei.xingxiangyi.fragments.GuaFragmentEntrance;
 import zhangfei.xingxiangyi.fragments.ImageAndTextFragment;
+import zhangfei.xingxiangyi.activitys.SettingsActivity;
 import zhangfei.xingxiangyi.fragments.XingXiangYiFragment;
 import zhangfei.xingxiangyi.utils.Util;
 
@@ -93,9 +95,8 @@ public class MainActivity extends XingXiangYiActivity implements NavigationView.
         int id = item.getItemId();
 
         if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_report) {
-
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_version_name) {
             Toast.makeText(getApplicationContext(), Util.getVersionName(getApplicationContext()), Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_version_code) {

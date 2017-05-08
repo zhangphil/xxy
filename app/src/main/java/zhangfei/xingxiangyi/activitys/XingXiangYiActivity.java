@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.io.File;
 
 import zhangfei.xingxiangyi.R;
@@ -79,5 +81,18 @@ public class XingXiangYiActivity extends AppCompatActivity {
                 activity.finish();
             }
         });
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);//友盟统计
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);//友盟统计
     }
 }

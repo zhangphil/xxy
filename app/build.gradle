@@ -10,12 +10,21 @@ android {
         versionCode 26
         versionName "3.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -24,7 +33,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:cardview-v7:25.3.0'
     compile 'com.android.support:design:25.3.0'
@@ -32,18 +40,23 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.0'
 
     compile 'com.github.clans:fab:1.6.4'
-    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.0.1'
 
     //compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
-
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     compile 'com.xw.repo:xedittext:2.0.2'
 
     compile 'me.kareluo.ui:popmenu:1.1.0'
+
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    //友盟统计分析
+
+    compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 }
