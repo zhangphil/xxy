@@ -1,6 +1,7 @@
 package zhangfei.xingxiangyi.activitys;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -42,6 +43,8 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
         setContentView(view);
         view.setKeepScreenOn(true);
 
+        setOnBack(this, view);
+
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
 
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -79,7 +82,7 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FileUtil.saveTextToFile(getApplicationContext(), editText.getText() + "", xingXiangYiBean.file, new FileUtil.OnFileListener() {
+                FileUtil.saveTextToFile(editText.getText() + "", xingXiangYiBean.file, new FileUtil.OnFileListener() {
                     @Override
                     public void onDone(File file) {
                         Toast.makeText(getApplicationContext(), "已保存" + file.getName(), Toast.LENGTH_SHORT).show();

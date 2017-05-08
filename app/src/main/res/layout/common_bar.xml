@@ -6,6 +6,15 @@
     android:background="@android:color/holo_red_light"
     app:layout_scrollFlags="scroll|enterAlways">
 
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:src="@android:drawable/ic_menu_revert"
+        android:visibility="gone" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

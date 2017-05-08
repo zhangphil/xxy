@@ -32,6 +32,7 @@ import me.kareluo.ui.OptionMenuView;
 import me.kareluo.ui.PopupMenuView;
 import zhangfei.xingxiangyi.R;
 import zhangfei.xingxiangyi.activitys.BaseDispalyActivity;
+import zhangfei.xingxiangyi.model.App;
 import zhangfei.xingxiangyi.model.XingXiangYiBean;
 import zhangfei.xingxiangyi.model.XingXiangYiRecyclerView;
 import zhangfei.xingxiangyi.utils.Util;
@@ -185,7 +186,7 @@ public class ContentsFragment extends XingXiangYiFragment {
         @Override
         public void onBindViewHolder(ItemViewHolder holder, int position) {
             XingXiangYiBean bean = mItems.get(position);
-            Glide.with(getActivity()).load(android.R.drawable.ic_menu_edit).crossFade(1000).into(holder.image);
+            Glide.with(getActivity()).load(android.R.drawable.ic_menu_edit).crossFade(App.GLIDE_CROSS_FADE_TIME).into(holder.image);
             holder.text.setText(String.valueOf(bean.file.getName()));
         }
 

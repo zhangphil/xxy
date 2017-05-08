@@ -1,11 +1,13 @@
 package zhangfei.xingxiangyi.activitys;
 
 import android.Manifest;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.File;
@@ -18,7 +20,7 @@ import zhangfei.xingxiangyi.utils.Util;
  * Created by Phil on 2017/4/25.
  */
 
-public class XingXiangYiActivity extends AppCompatActivity{
+public class XingXiangYiActivity extends AppCompatActivity {
     private String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
@@ -66,5 +68,16 @@ public class XingXiangYiActivity extends AppCompatActivity{
                     .setMessage("SDCard 异常,请检查SDCard是否正确加装")
                     .setPositiveButton("确定", null).show();
         }
+    }
+
+    public void setOnBack(final Activity activity, View view) {
+        View v = view.findViewById(R.id.back);
+        v.setVisibility(View.VISIBLE);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.finish();
+            }
+        });
     }
 }

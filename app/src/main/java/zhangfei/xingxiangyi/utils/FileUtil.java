@@ -171,7 +171,7 @@ public class FileUtil {
     }
 
 
-    public static void saveTextToFile(Context context, String string, File file, OnFileListener listener) {
+    public static void saveTextToFile(String string, File file, OnFileListener listener) {
         //File file = new File(getHistoryFilePath(context));
         FileOutputStream fos = null;
         try {

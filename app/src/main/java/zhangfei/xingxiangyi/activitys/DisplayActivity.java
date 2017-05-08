@@ -68,6 +68,8 @@ public class DisplayActivity extends XingXiangYiActivity {
         setContentView(view);
         view.setKeepScreenOn(true);
 
+        setOnBack(this, view);
+
         items[2] = editable ? "编辑[开]" : "编辑[关]";
 
         editText = (EditText) findViewById(R.id.editTextDisplayGua);
