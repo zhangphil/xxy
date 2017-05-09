@@ -1,14 +1,21 @@
+
 package zhangfei.xingxiangyi.utils;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.util.DisplayMetrics;
 
 import java.io.File;
 
@@ -16,6 +23,34 @@ import java.io.File;
  * Created by Phil on 2017/5/3.
  */
 public class Util {
+    public static float convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
+    // 图片添加水印
+    public static Bitmap createWatermarkBitmap(Context context, Bitmap srcBmp, String str,
+            float textSize) {
+        int w = srcBmp.getWidth();
+        int h = srcBmp.getHeight();
+
+        Bitmap bmpTemp = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmpTemp);
+
+        Paint p = new Paint();
+        p.setColor(Color.LTGRAY);
+        p.setTextSize(convertDpToPixel(textSize, context));
+        p.setAntiAlias(true);// 去锯齿
+
+        canvas.drawBitmap(srcBmp, 0, 0, p);
+        canvas.drawText(str, w - 160, h - 40, p);
+        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.restore();
+
+        return bmpTemp;
+    }
 
     public static String getVersionName(Context context) {
         return getPackageInfo(context).versionName;
@@ -40,19 +75,18 @@ public class Util {
         return pi;
     }
 
-
     public static void SelectSortSort(File[] fs) {
 
-        /**选择排序
-         * 排序结果根据“最后修改时间”大到小逆
-         * */
+        /**
+         * 选择排序 排序结果根据“最后修改时间”大到小逆
+         */
         int LEN = fs.length;
         int index, j, min;
         long lmin, lj;
         File tmpFile = null;
         for (index = 0; index < LEN - 1; index++) {
             min = index;
-            /**查找最大值*/
+            /** 查找最大值 */
             for (j = index + 1; j < LEN; j++) {
                 lmin = Long.valueOf(fs[min].lastModified());
                 lj = Long.valueOf(fs[j].lastModified());
@@ -61,7 +95,7 @@ public class Util {
                     min = j;
             }
 
-            /**交换*/
+            /** 交换 */
             tmpFile = fs[min];
             fs[min] = fs[index];
             fs[index] = tmpFile;
@@ -96,6 +130,7 @@ public class Util {
 
     // 判断是否有该权限
     private static boolean hasPermission(Context mContext, String permission) {
-        return ContextCompat.checkSelfPermission(mContext, permission) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(mContext,
+                permission) == PackageManager.PERMISSION_GRANTED;
     }
 }

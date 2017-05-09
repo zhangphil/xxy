@@ -1,3 +1,4 @@
+
 package zhangfei.xingxiangyi.utils;
 
 import android.content.Context;
@@ -37,14 +38,15 @@ public class FileUtil {
 
         Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
-        c.drawColor(Color.WHITE);/**如果不设置canvas画布为白色，则生成透明*/
+        c.drawColor(Color.WHITE);/** 如果不设置canvas画布为白色，则生成透明 */
         view.layout(0, 0, width, height);
         view.draw(c);
 
         return b;
     }
 
-    public static void save(Context context, View view, int width, int height, OnFileListener listener) {
+    public static void save(Context context, View view, int width, int height,
+            OnFileListener listener) {
         save(context, convertViewToBitmap(view, width, height), listener);
     }
 
@@ -80,15 +82,17 @@ public class FileUtil {
                 getImageFileObservable(context, bitmap)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(disposableObserver)
-        );
+                        .subscribeWith(disposableObserver));
     }
 
-    private static Observable<File> getImageFileObservable(@NonNull final Context context, @NonNull final Bitmap bitmap) {
+    private static Observable<File> getImageFileObservable(@NonNull
+    final Context context, @NonNull
+    final Bitmap bitmap) {
         return Observable.defer(new Callable<ObservableSource<File>>() {
             @Override
             public ObservableSource<File> call() throws Exception {
-                File file = saveBitmapAsFile(context, bitmap);
+                Bitmap bmp = Util.createWatermarkBitmap(context, bitmap, "星象仪", 16);
+                File file = saveBitmapAsFile(context, bmp);
                 return Observable.just(file);
             }
         });
@@ -101,7 +105,7 @@ public class FileUtil {
         File file = null;
         try {
             file = new File(fp, fn + ".png");
-            //file.createNewFile();
+            // file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
 
@@ -152,7 +156,7 @@ public class FileUtil {
         Paint p = new Paint();
         p.setColor(Color.LTGRAY);
         p.setTextSize(15);
-        p.setAntiAlias(true);//去锯齿
+        p.setAntiAlias(true);// 去锯齿
 
         canvas.drawBitmap(src, 0, 0, p);
 
@@ -170,12 +174,11 @@ public class FileUtil {
         void onError(Throwable e);
     }
 
-
     public static void saveTextToFile(String string, File file, OnFileListener listener) {
-        //File file = new File(getHistoryFilePath(context));
+        // File file = new File(getHistoryFilePath(context));
         FileOutputStream fos = null;
         try {
-            //file.createNewFile();
+            // file.createNewFile();
 
             fos = new FileOutputStream(file);
             fos.write(string.getBytes("utf-8"));
