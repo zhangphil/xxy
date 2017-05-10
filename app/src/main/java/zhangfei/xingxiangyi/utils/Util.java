@@ -3,6 +3,7 @@ package zhangfei.xingxiangyi.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -19,10 +20,29 @@ import android.util.DisplayMetrics;
 
 import java.io.File;
 
+import zhangfei.xingxiangyi.R;
+import zhangfei.xingxiangyi.model.App;
+
 /**
  * Created by Phil on 2017/5/3.
  */
 public class Util {
+
+    public static void setUserAvatarPath(Context context, String path) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                context.getString(R.string.user_store_info), Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putString(App.USER_AVATAR_PATH, path);
+        edit.commit();
+    }
+
+    public static String getUserAvatarPath(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(
+                context.getString(R.string.user_store_info), Context.MODE_PRIVATE);
+        String path = prefs.getString(App.USER_AVATAR_PATH, null);
+        return path;
+    }
+
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();

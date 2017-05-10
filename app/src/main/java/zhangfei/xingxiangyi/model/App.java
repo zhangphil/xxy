@@ -6,4 +6,6 @@ package zhangfei.xingxiangyi.model;
 
 public class App {
     public static final int GLIDE_CROSS_FADE_TIME = 1000; //Glide淡入时间
+
+    public static final String USER_AVATAR_PATH="avatar";
 }
