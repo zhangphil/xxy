@@ -1,3 +1,4 @@
+
 package zhangfei.xingxiangyi.activitys;
 
 import android.Manifest;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import zhangfei.xingxiangyi.utils.Util;
 
 /**
  * Created by Phil on 2017/5/8.
@@ -20,28 +22,38 @@ public class SettingsActivity extends PreferenceActivity {
     private PreferenceScreen root;
 
     private final String AUTHORITY = "authority";
+    private final String CLEAR_SHARED_PREFERENCES = "clear SharedPreferences";
+
+    private PreferenceActivity mActivity;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = this;
         setPreferenceScreen(createPreferenceHierarchy());
     }
 
     private PreferenceScreen createPreferenceHierarchy() {
-        //根
+        // 根
         root = getPreferenceManager().createPreferenceScreen(this);
 
-        //一类
+        // 一类
         PreferenceCategory settingsPrefCat = new PreferenceCategory(this);
         settingsPrefCat.setKey("settings");
         settingsPrefCat.setTitle("设置");
         root.addPreference(settingsPrefCat);
 
-        Preference p = new Preference(this);
-        p.setKey(AUTHORITY);
-        p.setTitle("权限");
-        p.setSummary("获取应用运行所需的权限");
-        settingsPrefCat.addPreference(p);
+        Preference authority = new Preference(this);
+        authority.setKey(AUTHORITY);
+        authority.setTitle("权限");
+        authority.setSummary("获取应用运行所需的权限");
+        settingsPrefCat.addPreference(authority);
+
+        Preference clearSharedPreferences = new Preference(this);
+        clearSharedPreferences.setKey(CLEAR_SHARED_PREFERENCES);
+        clearSharedPreferences.setTitle("清理偏好");
+        clearSharedPreferences.setSummary("恢复初装基础设置，重启星象仪生效");
+        settingsPrefCat.addPreference(clearSharedPreferences);
 
         return root;
     }
@@ -52,6 +64,11 @@ public class SettingsActivity extends PreferenceActivity {
 
         if (key.equals(AUTHORITY)) {
             getPermissions();
+        }
+
+        if (key.equals(CLEAR_SHARED_PREFERENCES)) {
+            Util.clearSharedPreferences(mActivity);
+            Toast.makeText(mActivity, "已清理", Toast.LENGTH_SHORT).show();
         }
 
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -66,9 +83,11 @@ public class SettingsActivity extends PreferenceActivity {
                 Manifest.permission.INTERNET)
                 .subscribe(granted -> { // will emit 2 Permission objects
                     if (granted) {
-                        Toast.makeText(getApplicationContext(), "已经获取所需权限", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "已经获取所需权限", Toast.LENGTH_SHORT)
+                                .show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "未能获取所需权限", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mActivity, "未能获取所需权限", Toast.LENGTH_SHORT)
+                                .show();
                     }
                 });
     }

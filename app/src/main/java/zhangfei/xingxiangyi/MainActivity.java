@@ -46,6 +46,8 @@ public class MainActivity extends XingXiangYiActivity
 
     private AppCompatActivity mActivity;
 
+    private String startDirectory = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +86,9 @@ public class MainActivity extends XingXiangYiActivity
             public void onClick(View view) {
                 ExFilePicker exFilePicker = new ExFilePicker();
                 exFilePicker.setCanChooseOnlyOneItem(true);
+                exFilePicker.setQuitButtonEnabled(true);
+                if (!TextUtils.isEmpty(startDirectory))
+                    exFilePicker.setStartDirectory(startDirectory);
                 exFilePicker.setChoiceType(ExFilePicker.ChoiceType.FILES);
                 exFilePicker.start(mActivity, EX_FILE_PICKER_RESULT);
             }
@@ -94,8 +99,13 @@ public class MainActivity extends XingXiangYiActivity
                     .into(navCircleImageView);
         } else {
             Uri uri = Uri.parse(Util.getUserAvatarPath(mActivity));
-            Glide.with(this).load(uri).crossFade(App.GLIDE_CROSS_FADE_TIME)
-                    .into(navCircleImageView);
+            try {
+                Glide.with(this).load(uri).error(R.mipmap.ic_launcher)
+                        .crossFade(App.GLIDE_CROSS_FADE_TIME)
+                        .into(navCircleImageView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -162,15 +172,19 @@ public class MainActivity extends XingXiangYiActivity
             ExFilePickerResult result = ExFilePickerResult.getFromIntent(data);
             if (result != null && result.getCount() > 0) {
                 String path = result.getPath();
+
                 List<String> names = result.getNames();
                 for (int i = 0; i < names.size(); i++) {
                     File f = new File(path, names.get(i));
                     try {
                         Uri uri = Uri.fromFile(f);
-                        Glide.with(this).load(uri).crossFade(App.GLIDE_CROSS_FADE_TIME)
+                        Glide.with(this).load(uri).error(R.mipmap.ic_launcher)
+                                .crossFade(App.GLIDE_CROSS_FADE_TIME)
                                 .into(navCircleImageView);
 
                         Util.setUserAvatarPath(mActivity, uri.toString());
+
+                        startDirectory = path;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

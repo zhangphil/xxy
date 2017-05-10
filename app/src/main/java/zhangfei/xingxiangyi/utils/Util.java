@@ -28,6 +28,12 @@ import zhangfei.xingxiangyi.model.App;
  */
 public class Util {
 
+    public static void clearSharedPreferences(Context context){
+        SharedPreferences prefs = context.getSharedPreferences(
+                context.getString(R.string.user_store_info), Context.MODE_PRIVATE);
+        prefs.edit().clear().commit();
+    }
+
     public static void setUserAvatarPath(Context context, String path) {
         SharedPreferences prefs = context.getSharedPreferences(
                 context.getString(R.string.user_store_info), Context.MODE_PRIVATE);
