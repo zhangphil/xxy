@@ -32,6 +32,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:text="V4.0"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle" />
 </LinearLayout>

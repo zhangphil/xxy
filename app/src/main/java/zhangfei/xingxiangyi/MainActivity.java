@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -98,6 +99,9 @@ public class MainActivity extends XingXiangYiActivity
                 e.printStackTrace();
             }
         }
+
+        TextView info = (TextView) headerLayout.findViewById(R.id.info);
+        info.setText(String.valueOf(Util.getVersionName(mActivity)));
     }
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
