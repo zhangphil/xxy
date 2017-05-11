@@ -1,3 +1,4 @@
+
 package zhangfei.xingxiangyi.fragments;
 
 import android.app.AlertDialog;
@@ -55,12 +56,16 @@ public class PaiGuaFragment extends XingXiangYiFragment {
     private TextView txtViewYearMonthDay = null, txtViewHourMinute = null;
     private int Year = 0, Month = 0, Day = 0, Hour = 0, Minute = 0;
 
-    //顺序必须这样排，不得改动次序
-    private static final String[] gua6Yao = {GuaFormat.ToDBC("老阴 ▅▅　  ▅▅ ╳"), GuaFormat.ToDBC("少阳 ▅▅▅▅▅"), GuaFormat.ToDBC("少阴 ▅▅ 　 ▅▅"), GuaFormat.ToDBC("老阳 ▅▅▅▅▅ ○")};
+    // 顺序必须这样排，不得改动次序
+    private static final String[] gua6Yao = {
+            GuaFormat.ToDBC("老阴 ▅▅　  ▅▅ ╳"), GuaFormat.ToDBC("少阳 ▅▅▅▅▅"),
+            GuaFormat.ToDBC("少阴 ▅▅ 　 ▅▅"), GuaFormat.ToDBC("老阳 ▅▅▅▅▅ ○")
+    };
 
     private TextView txtView6Yao, txtView5Yao, txtView4Yao, txtView3Yao, txtView2Yao, txtView1Yao;
-    private int[] YaoValue = {-1, -1, -1, -1, -1, -1};
-
+    private int[] YaoValue = {
+            -1, -1, -1, -1, -1, -1
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,8 +82,10 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN
+                | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return inflater.inflate(R.layout.activity_paigua, container, false);
     }
 
@@ -92,17 +99,15 @@ public class PaiGuaFragment extends XingXiangYiFragment {
         genderMale.setOnCheckedChangeListener(genderCheckBoxListener);
         genderFemale.setOnCheckedChangeListener(genderCheckBoxListener);
 
-
         txtViewBirthday = (TextView) view.findViewById(R.id.txtViewBirthday);
         txtViewBirthday.setClickable(true);
         txtViewBirthday.setOnClickListener(new TextViewBirthdayListener(getActivity()));
 
-
         nameEditText = (XEditText) view.findViewById(R.id.editTextName);
-        //nameEditText.setHint("姓名");
+        // nameEditText.setHint("姓名");
 
         editTextThings = (XEditText) view.findViewById(R.id.editTextThings);
-        //editTextThings.setHint("占卜事项");
+        // editTextThings.setHint("占卜事项");
 
         Calendar cal = Calendar.getInstance();
         Year = cal.get(Calendar.YEAR);
@@ -136,10 +141,10 @@ public class PaiGuaFragment extends XingXiangYiFragment {
         txtView1Yao = (TextView) view.findViewById(R.id.txtView1Yao);
         txtView1Yao.setOnClickListener(txtViewYaoListener);
 
-
         TextView txtViewPaiPan = (TextView) view.findViewById(R.id.txtViewPaiPan);
-        //一个继承自ShapeDrawable更为通用、可以直接使用的形状
-        PaintDrawable drawable = new PaintDrawable(0xffff4444);//0xffff4444 = android.R.color.holo_red_light
+        // 一个继承自ShapeDrawable更为通用、可以直接使用的形状
+        PaintDrawable drawable = new PaintDrawable(0xffff4444);// 0xffff4444 =
+                                                               // android.R.color.holo_red_light
         drawable.setCornerRadius(15);
         txtViewPaiPan.setBackground(drawable);
 
@@ -155,8 +160,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
         }
     }
 
-
-    /*在这里开始相应“开始排卦”按钮跳转到另外一个Activity*/
+    /* 在这里开始相应“开始排卦”按钮跳转到另外一个Activity */
     private class TextViewPaiPanListener implements TextView.OnClickListener {
         private Bundle bundle = null;
 
@@ -165,17 +169,16 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
             if (bundle != null) {
                 Intent intent = new Intent(getContext(), DisplayActivity.class);
-                //if(SHOUGONGZHIDING)
-                //	intent.putExtra("起卦方式","手工指定");
-                //else
-                //	intent.putExtra("起卦方式","电脑自动");
+                // if(SHOUGONGZHIDING)
+                // intent.putExtra("起卦方式","手工指定");
+                // else
+                // intent.putExtra("起卦方式","电脑自动");
                 intent.putExtra("UserData", bundle);
                 startActivity(intent);
             }
 
         }
     }
-
 
     private Bundle collectUserInputData() {
         Bundle bundle = new Bundle();
@@ -186,7 +189,10 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             for (int i = 0; i < 6; i++) {
                 n = YaoValue[i];
                 if (n < 0) {
-                    new AlertDialog.Builder(getActivity()).setTitle("卦爻不能为空").setIcon(android.R.drawable.ic_dialog_alert).setMessage("第 " + (i + 1) + " 爻未选").setPositiveButton("确定", null).show();
+                    new AlertDialog.Builder(getActivity()).setTitle("卦爻不能为空")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setMessage("第 " + (i + 1) + " 爻未选").setPositiveButton("确定", null)
+                            .show();
 
                     return null;
                 } else
@@ -194,7 +200,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             }
         } else {
             gy = "";
-            /*随机生成卦爻的值*/
+            /* 随机生成卦爻的值 */
 
             Random rand = new Random();
 
@@ -203,6 +209,11 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
                 for (int j = 0; j < 3; j++) {
                     sum = sum + rand.nextInt(2);
+                    try {
+                        Thread.sleep(1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 gy = gy + sum;
@@ -230,7 +241,9 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             THINGS = getResources().getString(R.string.unknown);
         bundle.putString("占卜事项", THINGS);
 
-        int[] datetime = {Year, Month, Day, Hour, Minute};
+        int[] datetime = {
+                Year, Month, Day, Hour, Minute
+        };
         bundle.putIntArray("起卦时间", datetime);
 
         bundle.putString("卦爻", gy);
@@ -247,7 +260,8 @@ public class PaiGuaFragment extends XingXiangYiFragment {
         public TextViewYaoListener() {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("选择卦爻");
-            builder.setSingleChoiceItems(gua6Yao, -1, new TextViewYaoListener.DialogInterfaceOnClickListenerImpl());
+            builder.setSingleChoiceItems(gua6Yao, -1,
+                    new TextViewYaoListener.DialogInterfaceOnClickListenerImpl());
 
             yaoDialog = builder.create();
         }
@@ -259,8 +273,8 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             yaoDialog.show();
         }
 
-
-        private class DialogInterfaceOnClickListenerImpl implements DialogInterface.OnClickListener {
+        private class DialogInterfaceOnClickListenerImpl
+                implements DialogInterface.OnClickListener {
             public void onClick(DialogInterface dialog, int index) {
                 yaoDialog.dismiss();
 
@@ -297,22 +311,24 @@ public class PaiGuaFragment extends XingXiangYiFragment {
         }
     }
 
-
     private class TextViewYearMonthDayListener implements TextView.OnClickListener {
         private DatePickerDialog dateDialog;
-        //private	int y,m,d;
+        // private int y,m,d;
 
         public TextViewYearMonthDayListener(Context context) {
             dateDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     if ((year <= 1900) || (year >= 2100)) {
                         /**
-                         Toast toast = Toast.makeText(getApplicationContext(),
-                         "年的设置范围是 1900 ~ 2100", Toast.LENGTH_LONG);
-                         toast.setGravity(Gravity.CENTER, 0, 0);	toast.show();
+                         * Toast toast = Toast.makeText(getApplicationContext(),
+                         * "年的设置范围是 1900 ~ 2100", Toast.LENGTH_LONG);
+                         * toast.setGravity(Gravity.CENTER, 0, 0); toast.show();
                          */
 
-                        new AlertDialog.Builder(getActivity()).setTitle("年设置超出范围").setIcon(android.R.drawable.ic_dialog_alert).setMessage("年的设置范围是 1900 ~ 2100").setPositiveButton("确定", null).show();
+                        new AlertDialog.Builder(getActivity()).setTitle("年设置超出范围")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setMessage("年的设置范围是 1900 ~ 2100").setPositiveButton("确定", null)
+                                .show();
 
                         return;
                     }
@@ -325,24 +341,19 @@ public class PaiGuaFragment extends XingXiangYiFragment {
                 }
             }
 
-
                     , Year, Month, Day);
 
             dateDialog.setTitle("设置年、月、日");
 
-			/*
-            dateDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-
-		           }
-		       });
-
-			dateDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"取消", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   dateDialog.cancel();
-		           }
-		       });
-		     */
+            /*
+             * dateDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new
+             * DialogInterface.OnClickListener() { public void
+             * onClick(DialogInterface dialog, int id) { } });
+             * dateDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"取消", new
+             * DialogInterface.OnClickListener() { public void
+             * onClick(DialogInterface dialog, int id) { dateDialog.cancel(); }
+             * });
+             */
         }
 
         public void onClick(View tv) {
@@ -350,10 +361,8 @@ public class PaiGuaFragment extends XingXiangYiFragment {
         }
     }
 
-
     private class TextViewHourMinuteListener implements TextView.OnClickListener {
         private TimePickerDialog timeDialog;
-
 
         public TextViewHourMinuteListener(Context context) {
             timeDialog = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
@@ -368,26 +377,21 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
             timeDialog.setTitle("设置时、分");
 
-			/*
-            timeDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-
-		           }
-		       });
-
-			timeDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"取消", new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   	timeDialog.cancel();
-		           }
-		       });
-		     */
+            /*
+             * timeDialog.setButton(AlertDialog.BUTTON_POSITIVE,"确定", new
+             * DialogInterface.OnClickListener() { public void
+             * onClick(DialogInterface dialog, int id) { } });
+             * timeDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"取消", new
+             * DialogInterface.OnClickListener() { public void
+             * onClick(DialogInterface dialog, int id) { timeDialog.cancel(); }
+             * });
+             */
         }
 
         public void onClick(View tv) {
             timeDialog.show();
         }
     }
-
 
     private class TextViewBirthdayListener implements TextView.OnClickListener {
         private NumberPicker picker = null;
@@ -398,7 +402,8 @@ public class PaiGuaFragment extends XingXiangYiFragment {
 
             Context context = ctx;
 
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.birthdayyearnumberpicker, null);
 
             picker = (NumberPicker) view.findViewById(R.id.birthdayYearNumberPicker);
@@ -406,7 +411,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             picker.setMaxValue(2100);
             picker.setValue(1990);
 
-            //picker.setOnLongPressUpdateInterval(300);
+            // picker.setOnLongPressUpdateInterval(300);
 
             builder.setView(view);
 
@@ -417,7 +422,7 @@ public class PaiGuaFragment extends XingXiangYiFragment {
                 }
             }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    /**什么也不做*/
+                    /** 什么也不做 */
                 }
             }).setTitle("选择出生年份");
 
@@ -428,7 +433,6 @@ public class PaiGuaFragment extends XingXiangYiFragment {
             dialog.show();
         }
     }
-
 
     /**
      * 为性别CheckBox的设置监听
