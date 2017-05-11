@@ -30,6 +30,9 @@ public class BaseData {
 
     public static final String YANG = "▅▅▅▅▅", YING = "▅▅　  ▅▅";
 
+    public static void  init(){
+        BaseData baseData=new BaseData();
+    }
 
     public BaseData() {
         try {

@@ -35,6 +35,7 @@ import zhangfei.xingxiangyi.activitys.BaseDispalyActivity;
 import zhangfei.xingxiangyi.model.App;
 import zhangfei.xingxiangyi.model.XingXiangYiBean;
 import zhangfei.xingxiangyi.model.XingXiangYiRecyclerView;
+import zhangfei.xingxiangyi.utils.FileUtil;
 import zhangfei.xingxiangyi.utils.Util;
 
 /**
@@ -136,7 +137,7 @@ public class ContentsFragment extends XingXiangYiFragment {
     private ArrayList readFiles() {
         ArrayList lists = new ArrayList();
 
-        File f = new File(getResources().getString(R.string.file_dir_history));
+        File f = new File(FileUtil.getHistoryFilePath(getActivity()));
         File[] fs = f.listFiles();
         int cnt = fs.length;
 

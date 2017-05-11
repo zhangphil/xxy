@@ -1,7 +1,6 @@
 package zhangfei.xingxiangyi.activitys;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -101,7 +100,7 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
         fabShot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FileUtil.save(getApplicationContext(), editText, editText.getWidth(), editText.getHeight(), new FileUtil.OnFileListener() {
+                FileUtil.saveView(getApplicationContext(), editText, editText.getWidth(), editText.getHeight(), new FileUtil.OnFileListener() {
                     @Override
                     public void onDone(File file) {
                         Toast.makeText(getApplicationContext(), "截图已保存" + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
@@ -121,7 +120,7 @@ public class BaseDispalyActivity extends XingXiangYiActivity {
             @Override
             public void onClick(View view) {
 
-                FileUtil.save(getApplicationContext(), editText, editText.getWidth(), editText.getHeight(), new FileUtil.OnFileListener() {
+                FileUtil.saveView(getApplicationContext(), editText, editText.getWidth(), editText.getHeight(), new FileUtil.OnFileListener() {
                     @Override
                     public void onDone(File file) {
                         Util.shareImage(getApplicationContext(), file);

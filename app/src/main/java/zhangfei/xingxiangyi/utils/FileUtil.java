@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +30,7 @@ import zhangfei.xingxiangyi.R;
 
 public class FileUtil {
 
-    private static final String TAG = "FileUtil";
+    private static final String TAG = "XingXiangYi FileUtil";
 
     public static Bitmap convertViewToBitmap(View view, int width, int height) {
         view.setDrawingCacheEnabled(true);
@@ -45,12 +46,13 @@ public class FileUtil {
         return b;
     }
 
-    public static void save(Context context, View view, int width, int height,
+    public static void saveView(Context context, View view, int width, int height,
             OnFileListener listener) {
-        save(context, convertViewToBitmap(view, width, height), listener);
+        saveView(context, convertViewToBitmap(view, width, height), listener);
     }
 
-    public static void save(Context context, final Bitmap bitmap, final OnFileListener listener) {
+    public static void saveView(Context context, final Bitmap bitmap,
+            final OnFileListener listener) {
         CompositeDisposable mCompositeDisposable = new CompositeDisposable();
         DisposableObserver disposableObserver = new DisposableObserver<File>() {
 
@@ -105,7 +107,7 @@ public class FileUtil {
         File file = null;
         try {
             file = new File(fp, fn + ".png");
-            // file.createNewFile();
+
             FileOutputStream fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, fos);
 
@@ -121,13 +123,21 @@ public class FileUtil {
     }
 
     public static String getSnapshotFilePath(Context context) {
-        String fp = context.getString(R.string.file_dir_snapshot);
-        return fp;
+        return getXingXiangYiDir(context.getString(R.string.file_dir_snapshot)).getPath();
     }
 
     public static String getHistoryFilePath(Context context) {
-        String fp = context.getString(R.string.file_dir_history);
-        return fp;
+        return getXingXiangYiDir(context.getString(R.string.file_dir_history)).getPath();
+    }
+
+    public static File getAvatarFilePath(Context context) {
+        return getXingXiangYiDir(context.getString(R.string.file_dir_avatar));
+    }
+
+    public static File getXingXiangYiDir(String s) {
+        File root = Environment.getExternalStorageDirectory();
+        File f = new File(root, s);
+        return f;
     }
 
     public static String getFileName() {
@@ -175,11 +185,9 @@ public class FileUtil {
     }
 
     public static void saveTextToFile(String string, File file, OnFileListener listener) {
-        // File file = new File(getHistoryFilePath(context));
         FileOutputStream fos = null;
         try {
             // file.createNewFile();
-
             fos = new FileOutputStream(file);
             fos.write(string.getBytes("utf-8"));
             fos.flush();

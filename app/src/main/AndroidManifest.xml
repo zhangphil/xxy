@@ -23,6 +23,8 @@
         <activity android:name=".activitys.BaseDispalyActivity" />
         <activity android:name=".activitys.SettingsActivity" />
 
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="zhangfei.xingxiangyi.fileprovider"
