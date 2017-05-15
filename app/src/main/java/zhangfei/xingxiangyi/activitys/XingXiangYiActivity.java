@@ -44,8 +44,13 @@ public class XingXiangYiActivity extends AppCompatActivity {
             Toast.makeText(this, "星象仪未能获取读写权限，不能正常使用", Toast.LENGTH_LONG).show();
         }
 
-        /** 全局初始化BaseData一次 */
-        BaseData.init();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                /** 全局初始化BaseData一次 */
+                BaseData.init();
+            }
+        }).start();
 
         /**
          * 判断SD卡是否插入
