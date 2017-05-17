@@ -3,35 +3,43 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:layout_margin="5dp"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="3dp"
     card_view:cardElevation="2dp"
     card_view:cardPreventCornerOverlap="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/tools"
+        android:id="@+id/ripple"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/circle_image_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_edit"
-            app:civ_border_color="@android:color/holo_blue_light"
-            app:civ_border_width="2dp"
-            app:civ_fill_color="@color/f4f4f4" />
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="10dp"
-            android:textAppearance="?android:textAppearanceListItem" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/circle_image_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@android:drawable/ic_menu_edit"
+                app:civ_border_color="@android:color/holo_blue_light"
+                app:civ_border_width="2dp"
+                app:civ_fill_color="@color/f4f4f4" />
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:textAppearance="?android:textAppearanceListItem" />
+        </LinearLayout>
+
+    </com.balysv.materialripple.MaterialRippleLayout>
 </android.support.v7.widget.CardView>

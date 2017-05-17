@@ -44,7 +44,7 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
 
     //compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -61,4 +61,6 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 
     compile 'com.soundcloud.android:android-crop:1.0.1@aar'
+
+    compile 'com.balysv:material-ripple:1.0.2'
 }
