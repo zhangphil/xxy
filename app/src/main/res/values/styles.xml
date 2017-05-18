@@ -1,5 +1,4 @@
 <resources>
-
     <declare-styleable name="SegmentControl">
         <attr name="cornerRadius" format="dimension|reference" />
         <attr name="selectedBackgroundColors" format="color|reference" />
